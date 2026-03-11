@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import "../styles/Landing.css";
+// import "../styles/Landing.css";
 
 const Navbar = () => {
   const location = useLocation();
@@ -17,46 +17,37 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
-      <h2 className="logo">AI Market Forecaster</h2>
-      <div className="nav-links">
-        <Link to="/">Home</Link>
-        <button onClick={() => scrollToSection("about")} className="nav-btn">
+    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 bg-slate-950/80 backdrop-blur-xl border-b border-white/10">
+      <h2 className="text-2xl font-bold text-gradient">MarketForecaster</h2>
+      <div className="flex items-center gap-8">
+        <Link to="/" className="text-slate-300 hover:text-primary transition-colors font-medium">Home</Link>
+        <button onClick={() => scrollToSection("about")} className="text-slate-300 hover:text-primary transition-colors font-medium cursor-pointer">
           About
         </button>
-        <button onClick={() => scrollToSection("features")} className="nav-btn">
+        <button onClick={() => scrollToSection("features")} className="text-slate-300 hover:text-primary transition-colors font-medium cursor-pointer">
           Features
         </button>
         {isLoggedIn ? (
-          <>
-            <Link to="/dashboard">Dashboard</Link>
+          <div className="flex items-center gap-4">
+            <Link to="/dashboard" className="text-slate-300 hover:text-primary transition-colors font-medium">Dashboard</Link>
             <button
               type="button"
-              className="profile-icon-btn"
+              className="w-10 h-10 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center text-slate-300 hover:border-primary/50 hover:text-primary transition-all cursor-pointer"
               aria-label="Profile"
               onClick={() => navigate("/profile")}
             >
-              <svg
-                className="profile-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5Z"
-                  fill="currentColor"
-                />
+              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5Z" fill="currentColor" />
               </svg>
             </button>
-          </>
+          </div>
         ) : (
-          <>
-            <Link to="/login">Login</Link>
-            <Link to="/signup" className="signup-btn">
+          <div className="flex items-center gap-6">
+            <Link to="/login" className="text-slate-300 hover:text-primary transition-colors font-medium">Login</Link>
+            <Link to="/signup" className="btn-primary py-2 px-5 text-sm">
               Sign Up
             </Link>
-          </>
+          </div>
         )}
       </div>
     </nav>

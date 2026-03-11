@@ -8,7 +8,7 @@ import {
   Title,
   Tooltip,
   Legend,
-    Filler 
+  Filler
 } from "chart.js";
 ChartJS.register(
   LineElement,
@@ -52,35 +52,35 @@ const TrendPanel = ({ trend }) => {
     ],
   };
 
-const options = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: { position: "top" },
-    title: { display: false },
-  },
-  scales: {
-   x: {
-  grid: { color: "rgba(148, 163, 184, 0.2)" },
-  ticks: {
-    color: "#94a3b8",
-    maxRotation: 45,
-    callback: function(value, index, ticks) {
-      // Get date from your trend data
-      if (trend && trend[index]) {
-        const date = new Date(trend[index].date);
-        return date.toLocaleDateString('en-US', { 
-          month: 'short', 
-          day: 'numeric' 
-        }); // "Feb 15"
-      }
-      return '';
-    }
-  },
-},
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: "top" },
+      title: { display: false },
+    },
+    scales: {
+      x: {
+        grid: { color: "rgba(148, 163, 184, 0.2)" },
+        ticks: {
+          color: "#94a3b8",
+          maxRotation: 45,
+          callback: function (value, index, ticks) {
+            // Get date from your trend data
+            if (trend && trend[index]) {
+              const date = new Date(trend[index].date);
+              return date.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric'
+              }); // "Feb 15"
+            }
+            return '';
+          }
+        },
+      },
 
 
-      
+
       "y-sentiment": {
         type: "linear",
         position: "left",
@@ -89,7 +89,7 @@ const options = {
         grid: { drawOnChartArea: false },
         ticks: {
           color: "rgba(56, 189, 248, 0.8)",
-          callback: function(value) {
+          callback: function (value) {
             return (value * 100).toFixed(0) + "%";
           },
         },
@@ -115,42 +115,46 @@ const options = {
   };
 
   return (
-    <div className="panel">
+    <div className="glass-card p-8 min-h-[500px] flex flex-col gap-6">
       {/* BRAND SUMMARY */}
-      <div className="brand-breakdown">
-        <div className="brand-metric echo">
-          <div className="brand-name">Echo Dot</div>
-          <div className="brand-sentiment">+15%</div>
-          <div className="brand-volume">1,200</div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-slate-800/40 p-4 rounded-xl border-l-4 border-primary">
+          <div className="text-xs font-bold text-slate-500 uppercase">Echo Dot</div>
+          <div className="flex items-baseline gap-2">
+            <span className="text-xl font-bold text-primary">+15%</span>
+            <span className="text-xs text-slate-400">1.2k mentions</span>
+          </div>
         </div>
-        <div className="brand-metric nest">
-          <div className="brand-name">Nest Mini</div>
-          <div className="brand-sentiment">-45%</div>
-          <div className="brand-volume">890</div>
+        <div className="bg-slate-800/40 p-4 rounded-xl border-l-4 border-accent">
+          <div className="text-xs font-bold text-slate-500 uppercase">Nest Mini</div>
+          <div className="flex items-baseline gap-2">
+            <span className="text-xl font-bold text-accent">-5%</span>
+            <span className="text-xs text-slate-400">890 mentions</span>
+          </div>
         </div>
-        <div className="brand-metric homepod">
-          <div className="brand-name">HomePod</div>
-          <div className="brand-sentiment">+32%</div>
-          <div className="brand-volume">589</div>
+        <div className="bg-slate-800/40 p-4 rounded-xl border-l-4 border-secondary">
+          <div className="text-xs font-bold text-slate-500 uppercase">HomePod</div>
+          <div className="flex items-baseline gap-2">
+            <span className="text-xl font-bold text-secondary">+32%</span>
+            <span className="text-xs text-slate-400">589 mentions</span>
+          </div>
         </div>
       </div>
 
       {/* CHART HEADER */}
-      <div className="panel-header">
-        <h3>Sentiment & Volume Over Time</h3>
-        <span className="chart-subtitle">Filtered by global brand selection</span>
+      <div>
+        <h3 className="text-xl font-bold text-slate-100">Sentiment & Volume Over Time</h3>
+        <p className="text-sm text-slate-500">Real-time analysis across selected market segments</p>
       </div>
 
-      <div style={{ height: "320px", position: "relative" }}>
+      <div className="flex-1 min-h-[300px] relative">
         {trend && trend.length > 0 ? (
           <Line data={chartData} options={options} />
         ) : (
-          <div className="chart-placeholder">
-            <div>📈</div>
-            <div style={{ marginTop: "8px" }}>Sentiment trend data loading...</div>
-            <div style={{ fontSize: "0.9rem", opacity: 0.7 }}>
-              2,679 reviews analyzed across all channels
-            </div>
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-500 bg-slate-800/20 rounded-2xl border border-white/5 border-dashed">
+            <div className="text-4xl mb-2">📈</div>
+            <div className="font-medium">Analysis data loading...</div>
+            <div className="text-xs opacity-60">Crunching sentiment across 2,679 data points</div>
           </div>
         )}
       </div>
