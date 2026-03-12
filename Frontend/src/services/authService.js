@@ -1,4 +1,5 @@
 import axios from "axios";
+import http from "./httpClient";
 
 const API_URL = "http://localhost:8000/auth";
 
@@ -14,26 +15,16 @@ export const login = async (credentials) => {
 
 // Profile methods
 export const getProfile = async () => {
-  // Mocking for now as backend might not have these endpoints fully ready
-  return {
-    name: "John Doe",
-    username: "johndoe",
-    email: "john@example.com",
-    joinedDate: "2024-01-15",
-    stats: {
-      forecasts: 42,
-      accuracy: "89%",
-      lastLogin: "2 hours ago"
-    }
-  };
+  const response = await http.get("/users/profile");
+  return response.data;
 };
 
 export const updateProfile = async (profileData) => {
-  // Mock update
-  return { success: true, data: profileData };
+  const response = await http.put("/users/profile", profileData);
+  return response.data;
 };
 
 export const updatePassword = async (passwords) => {
-  // Mock update
-  return { success: true };
+  const response = await http.put("/users/change-password", passwords);
+  return response.data;
 };

@@ -33,6 +33,8 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
+from bson import ObjectId
+
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -41,13 +43,17 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
+        user_id: str = payload.get("sub")
+        if user_id is None:
             raise credentials_exception
-        token_data = TokenData(username=username)
     except Exception:
         raise credentials_exception
-    user = await users_collection.find_one({"username": token_data.username})
+        
+    try:
+        user = await users_collection.find_one({"_id": ObjectId(user_id)})
+    except Exception:
+        raise credentials_exception
+        
     if user is None:
         raise credentials_exception
     return user

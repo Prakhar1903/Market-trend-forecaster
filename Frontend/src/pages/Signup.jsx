@@ -5,6 +5,7 @@ import { signup } from "../services/authService";
 
 const Signup = () => {
   const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -19,7 +20,12 @@ const Signup = () => {
     }
 
     try {
-      await signup({ username: name.trim(), email: email.trim(), password });
+      await signup({
+        name: name.trim(),
+        username: username.trim(),
+        email: email.trim(),
+        password
+      });
       alert("Account created successfully! Please login.");
       navigate("/login");
     } catch (error) {
@@ -43,6 +49,15 @@ const Signup = () => {
             className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-5 py-3 text-slate-200 outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
+          />
+
+          <input
+            type="text"
+            placeholder="Username"
+            className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-5 py-3 text-slate-200 outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
 
