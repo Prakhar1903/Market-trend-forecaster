@@ -83,7 +83,7 @@ const Dashboard = () => {
         <div className="flex items-center gap-3">
           <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Source</label>
           <select
-            className="bg-slate-950 border border-white/10 rounded-xl px-4 py-2 text-sm font-medium text-slate-300 focus:ring-2 focus:ring-primary/50 outline-none transition-all cursor-pointer min-w-[160px]"
+            className="bg-slate-950 border border-white/10 rounded-xl px-4 py-2 text-sm font-medium text-slate-300 focus:ring-2 focus:ring-primary/50 outline-none transition-all cursor-pointer min-w-40"
             value={filters.source}
             onChange={(e) =>
               setFilters((f) => ({ ...f, source: e.target.value }))
@@ -102,7 +102,7 @@ const Dashboard = () => {
         <div className="flex items-center gap-3">
           <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Product</label>
           <select
-            className="bg-slate-950 border border-white/10 rounded-xl px-4 py-2 text-sm font-medium text-slate-300 focus:ring-2 focus:ring-primary/50 outline-none transition-all cursor-pointer min-w-[160px]"
+            className="bg-slate-950 border border-white/10 rounded-xl px-4 py-2 text-sm font-medium text-slate-300 focus:ring-2 focus:ring-primary/50 outline-none transition-all cursor-pointer min-w-40"
             value={filters.product}
             onChange={(e) =>
               setFilters((f) => ({ ...f, product: e.target.value }))
