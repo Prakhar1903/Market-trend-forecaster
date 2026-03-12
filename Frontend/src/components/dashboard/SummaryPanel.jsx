@@ -2,19 +2,23 @@ import React from "react";
 
 const SummaryPanel = ({ text }) => {
   return (
-    <div className="glass-card p-6 bg-gradient-to-br from-primary/10 to-transparent border-primary/20">
-      <h3 className="text-lg font-bold text-slate-100 mb-4 flex items-center gap-2">
+    <div className="glass-card p-6 flex flex-col gap-4 bg-gradient-to-br from-primary/10 to-transparent border-primary/20">
+      <h3 className="text-lg font-bold text-slate-100 flex items-center gap-2">
         <span className="text-xl">✨</span> AI Insights
       </h3>
-      <div className="space-y-4">
-        <p className="text-sm text-slate-300 leading-relaxed italic">
-          "{text}"
-        </p>
-        <div className="pt-4 border-t border-white/10">
-          <button className="text-primary text-xs font-bold hover:underline cursor-pointer flex items-center gap-1">
-            Generate Detailed Report →
-          </button>
-        </div>
+
+      <p className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">
+        Generated from your data
+      </p>
+
+      <p className="text-sm text-slate-300 leading-relaxed italic">
+        &ldquo;{text}&rdquo;
+      </p>
+
+      <div className="pt-5 border-t border-white/10">
+        <button className="text-primary text-xs font-bold hover:underline cursor-pointer flex items-center gap-1 transition-all hover:gap-2">
+          Generate Detailed Report →
+        </button>
       </div>
     </div>
   );

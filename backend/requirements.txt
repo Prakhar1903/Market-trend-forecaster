@@ -5,3 +5,7 @@ pymongo
 python-jose[cryptography]
 bcrypt
 python-dotenv
+pandas
+requests
+beautifulsoup4
+crawl4ai

@@ -1,58 +1,146 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-// REMOVE AppNavbar import - EMBED navbar directly
 
+// ── Sidebar nav items ──────────────────────────────────────────────────────
+const NAV_ITEMS = [
+  { id: '', label: 'Overview', icon: '📊', path: '/dashboard' },
+  { id: 'brands', label: 'Brand Comparison', icon: '⚖️', path: '/dashboard/brands' },
+  { id: 'explorer', label: 'Sentiment Explorer', icon: '🔍', path: '/dashboard/explorer' },
+  { id: 'alerts', label: 'Alerts', icon: '🔔', path: '/dashboard/alerts' },
+  { id: 'reports', label: 'Reports', icon: '📋', path: '/dashboard/reports' },
+  { id: 'chatbot', label: 'AI Chatbot', icon: '🤖', path: '/dashboard/chatbot' },
+];
+
+// ── Page meta derived from current path ───────────────────────────────────
+const PAGE_META = {
+  '/dashboard': { title: 'Market Overview', subtitle: 'AI-powered sentiment analysis across all products' },
+  '/dashboard/brands': { title: 'Brand Comparison', subtitle: 'Side-by-side competitive sentiment analysis' },
+  '/dashboard/explorer': { title: 'Sentiment Explorer', subtitle: 'Deep-dive into individual reviews and signals' },
+  '/dashboard/alerts': { title: 'Alerts', subtitle: 'AI-detected anomalies and market signals' },
+  '/dashboard/reports': { title: 'Reports', subtitle: 'Export and schedule AI-generated reports' },
+  '/dashboard/chatbot': { title: 'AI Chatbot', subtitle: 'Ask market questions in natural language' },
+  '/dashboard/profile': { title: 'Your Profile', subtitle: 'Manage your account and preferences' },
+};
+
+// ── Helper: format current time ────────────────────────────────────────────
+function useLastUpdated() {
+  const [time, setTime] = useState(new Date());
+  useEffect(() => {
+    const id = setInterval(() => setTime(new Date()), 60_000);
+    return () => clearInterval(id);
+  }, []);
+  return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+// ── DashboardLayout ────────────────────────────────────────────────────────
 const DashboardLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const lastUpdated = useLastUpdated();
+  const meta = PAGE_META[location.pathname] || { title: 'Dashboard', subtitle: '' };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col">
-      {/* Topbar */}
-      <header className="h-16 flex items-center justify-between px-8 bg-slate-900/50 backdrop-blur-xl border-b border-white/10 sticky top-0 z-40">
-        <div className="text-xl font-bold text-gradient">MarketForecaster <span className="text-slate-500 text-sm font-normal ml-2">v0.1</span></div>
+    <div className="h-screen overflow-hidden bg-slate-950 flex flex-col">
+
+      {/* ── Top Header ──────────────────────────────────────────────────── */}
+      <header className="h-16 flex-shrink-0 flex items-center justify-between px-6 bg-slate-900/70 backdrop-blur-xl border-b border-white/10 z-40">
+
+        {/* Left — brand + page title */}
+        <div className="flex items-center gap-6">
+          {/* Logo / brand */}
+          <div className="flex items-center gap-2.5 flex-shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-sm font-black text-white shadow-[0_0_16px_rgba(56,189,248,0.4)]">
+              M
+            </div>
+            <span className="text-base font-black text-gradient tracking-tight hidden sm:block">
+              MarketForecaster
+            </span>
+          </div>
+
+          {/* Divider */}
+          <div className="w-px h-5 bg-white/10 hidden md:block" />
+
+          {/* Page title breadcrumb */}
+          <div className="hidden md:flex flex-col">
+            <span className="text-sm font-bold text-slate-200 leading-tight">{meta.title}</span>
+            <span className="text-[10px] text-slate-500 leading-tight">{meta.subtitle}</span>
+          </div>
+        </div>
+
+        {/* Right — live indicator + last updated + profile */}
         <div className="flex items-center gap-4">
+
+          {/* Live indicator */}
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+            <span className="text-[10px] font-bold text-accent uppercase tracking-wider">Live</span>
+          </div>
+
+          {/* Last updated */}
+          <div className="hidden md:flex items-center gap-1.5 text-[10px] text-slate-500">
+            <svg className="w-3 h-3 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
+            </svg>
+            Updated {lastUpdated}
+          </div>
+
+          {/* Divider */}
+          <div className="w-px h-5 bg-white/10" />
+
+          {/* Profile button */}
           <button
             type="button"
-            className="w-9 h-9 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary/50 transition-all cursor-pointer"
+            onClick={() => navigate('/dashboard/profile')}
+            className={`w-9 h-9 rounded-full flex items-center justify-center transition-all cursor-pointer border ${location.pathname === '/dashboard/profile'
+                ? 'bg-primary/20 border-primary/40 text-primary'
+                : 'bg-slate-800 border-white/10 text-slate-400 hover:text-primary hover:border-primary/50'
+              }`}
             aria-label="Profile"
-            onClick={() => navigate("/profile")}
           >
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
               <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5Z" fill="currentColor" />
             </svg>
           </button>
         </div>
       </header>
 
+      {/* ── Body (sidebar + content) ─────────────────────────────────────── */}
       <div className="flex flex-1 overflow-hidden">
+
         {/* Sidebar */}
-        <aside className="w-64 bg-slate-900/30 border-r border-white/10 p-6 flex flex-col gap-2 overflow-y-auto">
-          {[
-            { id: '', label: 'Overview', icon: '📊', path: '/dashboard' },
-            { id: 'brands', label: 'Brand Comparison', icon: '⚖️', path: '/dashboard/brands' },
-            { id: 'alerts', label: 'Alerts', icon: '🔔', path: '/dashboard/alerts' },
-            { id: 'reports', label: 'Reports', icon: '📋', path: '/dashboard/reports' },
-            { id: 'chatbot', label: 'AI Chatbot', icon: '🤖', path: '/dashboard/chatbot' },
-          ].map((item) => {
+        <aside className="w-60 flex-shrink-0 bg-slate-900/30 border-r border-white/10 p-4 flex flex-col gap-1 overflow-y-auto">
+          {NAV_ITEMS.map((item) => {
             const isActive = location.pathname === item.path;
             return (
               <button
                 key={item.id}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group cursor-pointer ${isActive
-                    ? 'bg-primary/10 text-primary border border-primary/20 shadow-[0_0_20px_rgba(56,189,248,0.1)]'
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group cursor-pointer text-left w-full ${isActive
+                    ? 'bg-primary/10 text-primary border border-primary/20 shadow-[0_0_20px_rgba(56,189,248,0.08)]'
                     : 'text-slate-400 hover:bg-white/5 hover:text-slate-200 border border-transparent'
                   }`}
                 onClick={() => navigate(item.path)}
               >
-                <span className={`text-lg transition-transform group-hover:scale-120 ${isActive ? 'scale-110' : ''}`}>{item.icon}</span>
-                <span className="font-medium text-sm">{item.label}</span>
+                <span className={`text-base transition-transform group-hover:scale-110 ${isActive ? 'scale-110' : ''}`}>
+                  {item.icon}
+                </span>
+                <span className="font-medium text-sm truncate">{item.label}</span>
+                {isActive && (
+                  <span className="ml-auto w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                )}
               </button>
             );
           })}
+
+          {/* Sidebar footer — version badge */}
+          <div className="mt-auto pt-4 border-t border-white/5">
+            <div className="px-4 py-2 rounded-xl bg-white/[0.02] border border-white/5">
+              <p className="text-[10px] text-slate-600 font-bold uppercase tracking-widest">MarketForecaster</p>
+              <p className="text-[10px] text-slate-700 mt-0.5">v0.1 · Beta</p>
+            </div>
+          </div>
         </aside>
 
-        {/* Content Area */}
+        {/* Main content */}
         <main className="flex-1 overflow-y-auto bg-[radial-gradient(circle_at_top_right,#1e293b,transparent)]">
           <div className="p-8 max-w-7xl mx-auto">
             <Outlet />

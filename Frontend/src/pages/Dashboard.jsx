@@ -9,6 +9,7 @@ import TopicsPanel from "../components/dashboard/TopicsPanel";
 import ChannelsPanel from "../components/dashboard/ChannelsPanel";
 import AlertsPreviewPanel from "../components/dashboard/AlertsPreviewPanel";
 import SummaryPanel from "../components/dashboard/SummaryPanel";
+import RecentActivityPanel from "../components/dashboard/RecentActivityPanel";
 
 
 
@@ -20,14 +21,14 @@ const Dashboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Filters - NO TIME FILTER, only real channels + brands
+  // Filters - Source & Product
   const [filters, setFilters] = useState({
-    channel: "all",
-    brand: "all",
+    source: "all",
+    product: "all",
   });
 
-  const brandOptions = [
-    { id: "all", label: "All brands" },
+  const productOptions = [
+    { id: "all", label: "All Products" },
     { id: "echo-dot", label: "Amazon Echo Dot" },
     { id: "nest-mini", label: "Google Nest Mini" },
     { id: "homepod-mini", label: "Apple HomePod Mini" },
@@ -46,7 +47,7 @@ const Dashboard = () => {
       }
     }
     load();
-  }, [filters.channel, filters.brand]);
+  }, [filters.source, filters.product]);
 
   if (loading) {
     return (
@@ -72,36 +73,42 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col gap-8 animate-in fade-in duration-700">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-extrabold text-slate-100 tracking-tight">Market Overview</h1>
-          <p className="text-slate-400">AI-powered trend & sentiment analysis across all brands</p>
-        </div>
+      <div className="flex flex-col gap-1">
+        <h1 className="text-3xl font-extrabold text-slate-100 tracking-tight">Market Overview</h1>
+        <p className="text-slate-400">AI-powered trend & sentiment analysis across all products</p>
+      </div>
 
-        {/* Filters */}
+      {/* Filter Bar */}
+      <div className="flex items-center gap-4 bg-slate-900/50 p-4 rounded-2xl border border-white/5 backdrop-blur-md">
         <div className="flex items-center gap-3">
+          <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Source</label>
           <select
-            className="bg-slate-900 border border-white/10 rounded-xl px-4 py-2 text-sm font-medium text-slate-300 focus:ring-2 focus:ring-primary/50 outline-none transition-all cursor-pointer"
-            value={filters.channel}
+            className="bg-slate-950 border border-white/10 rounded-xl px-4 py-2 text-sm font-medium text-slate-300 focus:ring-2 focus:ring-primary/50 outline-none transition-all cursor-pointer min-w-[160px]"
+            value={filters.source}
             onChange={(e) =>
-              setFilters((f) => ({ ...f, channel: e.target.value }))
+              setFilters((f) => ({ ...f, source: e.target.value }))
             }
           >
-            <option value="all">All Channels</option>
+            <option value="all">All Sources</option>
             <option value="amazon-reviews">Amazon Reviews</option>
             <option value="youtube">YouTube Comments</option>
             <option value="news">News Articles</option>
             <option value="web-reviews">Review Sites</option>
           </select>
+        </div>
 
+        <div className="w-px h-6 bg-white/10" />
+
+        <div className="flex items-center gap-3">
+          <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Product</label>
           <select
-            className="bg-slate-900 border border-white/10 rounded-xl px-4 py-2 text-sm font-medium text-slate-300 focus:ring-2 focus:ring-primary/50 outline-none transition-all cursor-pointer"
-            value={filters.brand}
+            className="bg-slate-950 border border-white/10 rounded-xl px-4 py-2 text-sm font-medium text-slate-300 focus:ring-2 focus:ring-primary/50 outline-none transition-all cursor-pointer min-w-[160px]"
+            value={filters.product}
             onChange={(e) =>
-              setFilters((f) => ({ ...f, brand: e.target.value }))
+              setFilters((f) => ({ ...f, product: e.target.value }))
             }
           >
-            {brandOptions.map((b) => (
+            {productOptions.map((b) => (
               <option key={b.id} value={b.id}>
                 {b.label}
               </option>
@@ -111,23 +118,24 @@ const Dashboard = () => {
       </div>
 
       {/* KPI Cards */}
-      <KpiRow summary={data.summary} />
+      <KpiRow summary={data.summary} filters={filters} />
 
       {/* Main Grid: Trend + Topics */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-          <TrendPanel trend={data.trend} />
+          <TrendPanel trendData={data.trend_comparison} activeProduct={filters.product} />
         </div>
         <div>
           <TopicsPanel topics={data.topics} />
         </div>
       </div>
 
-      {/* Bottom Grid: Channels + Alerts + Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Bottom Grid: Channels + Alerts + Summary + Activity */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
         <ChannelsPanel channels={data.channels} />
         <AlertsPreviewPanel alerts={data.alerts} />
         <SummaryPanel text={data.summaryText} />
+        <RecentActivityPanel activities={data.recent_data} />
       </div>
     </div>
   );

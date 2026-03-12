@@ -1,0 +1,395 @@
+nohup: ignoring input
+INFO:     Will watch for changes in these directories: ['/home/prakhar/Market-trend-forecaster/backend']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [51693] using WatchFiles
+INFO:     Started server process [51695]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:57258 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57274 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48800 - "GET /api/sentiment?product=echo-dot&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48802 - "GET /api/sentiment?product=homepod-mini&platform=amazon-reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39574 - "GET /api/sentiment?product=all&platform=amazon-reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39574 - "GET /api/sentiment?product=echo-dot&platform=amazon-reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39574 - "GET /api/sentiment?product=nest-mini&platform=amazon-reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39574 - "GET /api/sentiment?product=homepod-mini&platform=amazon-reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39574 - "GET /api/sentiment?product=echo-dot&platform=amazon-reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39574 - "GET /api/sentiment?product=all&platform=amazon-reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39574 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39622 - "GET /api/sentiment?product=echo-dot&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39622 - "GET /api/sentiment?product=nest-mini&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39622 - "GET /api/sentiment?product=homepod-mini&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39622 - "GET /api/sentiment?product=homepod-mini&platform=youtube HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39622 - "GET /api/sentiment?product=echo-dot&platform=youtube HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39622 - "GET /api/sentiment?product=nest-mini&platform=youtube HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39622 - "GET /api/sentiment?product=homepod-mini&platform=youtube HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39622 - "GET /api/sentiment?product=homepod-mini&platform=news HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39622 - "GET /api/sentiment?product=echo-dot&platform=news HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39622 - "GET /api/sentiment?product=all&platform=news HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39622 - "GET /api/sentiment?product=all&platform=web-reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39622 - "GET /api/sentiment?product=echo-dot&platform=web-reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39622 - "GET /api/sentiment?product=nest-mini&platform=web-reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39622 - "GET /api/sentiment?product=homepod-mini&platform=web-reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40154 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40156 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37678 - "GET /api/sentiment/explorer?product=all&platform=amazon-reviews&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37678 - "GET /api/sentiment/explorer?product=echo-dot&platform=amazon-reviews&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37678 - "GET /api/sentiment/explorer?product=echo-dot&platform=amazon-reviews&sentiment=positive&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/routes/sentiment_routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [51695]
+INFO:     Started server process [52509]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:57600 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45824 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56856 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54774 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54776 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53940 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53946 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53946 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53946 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/routes/sentiment_routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [52509]
+INFO:     Started server process [53323]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:43984 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39416 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57366 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57366 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/routes/sentiment_routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [53323]
+INFO:     Started server process [53514]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:53214 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42460 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42460 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44470 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44470 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47334 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47334 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47338 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47338 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47338 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58752 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58752 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58752 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58752 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58762 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45702 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45702 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45702 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45706 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35376 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35376 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/routes/sentiment_routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [53514]
+INFO:     Started server process [53859]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:50006 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51914 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51914 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36940 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36950 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58308 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58316 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58316 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58316 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58316 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58318 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41468 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41470 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46856 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46856 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46856 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46860 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49808 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42112 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55560 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50254 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50262 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50254 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50254 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50262 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50262 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47300 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47312 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47300 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47300 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47312 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47312 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55556 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55566 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55556 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55556 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55566 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55566 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60078 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60082 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60078 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60098 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60078 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60110 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60098 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60078 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60098 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60110 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60098 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60110 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39500 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39508 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39500 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39500 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39508 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39508 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39508 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39508 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39508 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39500 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39508 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39508 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39500 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39500 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45272 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45276 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45272 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45272 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45276 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45276 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54590 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54600 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54590 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54590 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54600 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54600 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47688 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47692 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47688 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47688 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47692 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47692 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33326 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33330 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33326 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33326 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33330 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33330 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49276 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49290 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49276 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49276 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49290 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49290 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58988 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58994 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58988 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58988 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58994 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58994 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55916 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55924 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55916 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55916 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55924 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55924 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59752 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59754 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59752 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59752 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59754 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59754 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59754 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59754 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59754 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32938 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32938 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32938 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32938 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32938 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32938 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51062 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32938 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32938 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51062 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51062 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57576 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57590 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57576 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57576 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57590 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57590 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34432 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34434 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34432 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34432 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34434 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34434 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46730 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46732 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46730 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46730 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46732 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46732 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43832 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43842 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43832 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43852 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43852 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43852 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50062 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50068 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50062 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50062 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50068 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50068 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53292 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53292 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53292 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46452 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46452 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46452 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54820 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54820 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54820 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54826 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54820 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54820 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54826 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54826 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58488 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58502 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58488 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58488 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58502 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45286 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45302 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45286 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45286 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45302 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45302 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57754 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57756 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57754 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57754 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57756 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57756 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46390 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46402 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46402 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46402 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46402 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46402 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46402 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53626 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46402 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46402 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53626 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53626 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44956 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44964 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44956 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44956 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44964 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44964 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33830 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33838 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33830 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33830 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33838 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33838 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45254 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45264 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45254 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45254 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45264 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45264 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38194 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38200 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38194 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38194 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38200 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38200 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56796 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39802 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56796 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56796 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39802 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39802 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59100 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59112 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59100 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59100 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59112 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59112 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54694 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54698 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54694 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54694 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54698 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54698 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55742 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55756 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55742 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55742 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55756 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55756 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42320 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42336 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42320 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42320 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42336 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42336 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42336 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42320 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42336 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42336 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42320 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42320 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42622 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42622 - "GET /api/sentiment/brands HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42622 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42636 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46078 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=2&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46078 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=5&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46078 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=6&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46078 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=7&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46078 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=8&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46078 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=9&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46078 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=8&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46078 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=7&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46078 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=6&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46078 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=5&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46078 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=4&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46078 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=3&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46078 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=2&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46078 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33470 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33470 - "GET /api/sentiment/alerts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57828 - "GET /api/sentiment?product=all&platform=all HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33406 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33414 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33406 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33414 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33406 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33414 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32772 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32788 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32772 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32788 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32772 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32788 - "GET /api/sentiment/explorer?product=all&platform=all&sentiment=all&topic=all&search=&page=1&page_size=20 HTTP/1.1" 200 OK

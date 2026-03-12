@@ -34,7 +34,7 @@ const Navbar = () => {
               type="button"
               className="w-10 h-10 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center text-slate-300 hover:border-primary/50 hover:text-primary transition-all cursor-pointer"
               aria-label="Profile"
-              onClick={() => navigate("/profile")}
+              onClick={() => navigate("/dashboard/profile")}
             >
               <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5Z" fill="currentColor" />
