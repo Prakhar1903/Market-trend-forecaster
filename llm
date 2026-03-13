@@ -1,0 +1,79 @@
+import pandas as pd
+import requests
+import time
+import urllib3
+import json
+
+urllib3.disable_warnings()
+
+API_KEY = "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"
+
+df = pd.read_csv("reviews.csv")
+df["text"] = df["text"].astype(str)
+
+def analyze_review(text):
+
+    prompt = f"""
+Analyze the following review.
+
+Return ONLY valid JSON in this format:
+
+{{
+"sentiment": "Positive/Negative/Neutral",
+"score": 0.0-1.0,
+"topic": "short phrase"
+}}
+
+Review:
+{text}
+"""
+
+    url = "https://openrouter.ai/api/v1/chat/completions"
+
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    data = {
+        "model": "meta-llama/llama-3-8b-instruct",
+        "messages":[{"role":"user","content":prompt}]
+    }
+
+    try:
+        response = requests.post(url, headers=headers, json=data, timeout=60)
+        result = response.json()
+
+        content = result["choices"][0]["message"]["content"]
+
+        parsed = json.loads(content)
+
+        return parsed["sentiment"], parsed["score"], parsed["topic"]
+
+    except:
+        return "Error", 0, "Unknown"
+
+
+sentiments = []
+scores = []
+topics = []
+
+for i, text in enumerate(df["text"]):
+
+    print(f"Processing {i+1}/{len(df)}")
+
+    sentiment, score, topic = analyze_review(text)
+
+    sentiments.append(sentiment)
+    scores.append(score)
+    topics.append(topic)
+
+    time.sleep(1)
+
+df["sentiment"] = sentiments
+df["score"] = scores
+df["topic"] = topics
+
+df.to_csv("llm_sentiment_outputs.csv", index=False)
+
+print("File Saved")
