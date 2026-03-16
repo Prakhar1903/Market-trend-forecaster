@@ -11,3 +11,4 @@ beautifulsoup4
 crawl4ai
 httpx
 openpyxl
+fpdf2
