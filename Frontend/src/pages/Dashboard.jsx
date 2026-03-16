@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import "../styles/dashboard.css";
 import { getDashboardOverview } from "../services/dashboardService";
@@ -15,9 +14,6 @@ import RecentActivityPanel from "../components/dashboard/RecentActivityPanel";
 
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -48,7 +44,7 @@ const Dashboard = () => {
       }
     }
     load();
-  }, [filters.source, filters.product, filters.range]);
+  }, [filters]);
 
   if (loading) {
     return (

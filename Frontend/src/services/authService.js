@@ -51,7 +51,7 @@ export const updateProfile = async (profileData) => {
   return response.data;
 };
 
-export const updatePassword = async (passwords) => {
+export const updatePassword = () => {
   // Mock update
   return { success: true };
 };
