@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8000/api";
+const API_BASE_URL = "http://localhost:8002/api";
 
 /** Returns a human-readable relative-time string like "12 minutes ago" */
 function relativeTime(minutesAgo) {
@@ -54,8 +54,18 @@ function buildInsight(data, brands = [], backendInsight = "") {
 
 export async function getDashboardOverview(filters) {
   try {
+    const sentimentParams = {
+      product: filters.product,
+      platform: filters.source,
+      range: filters.range
+    };
+
+    // Add custom dates if provided
+    if (filters.from) sentimentParams.from = filters.from;
+    if (filters.to) sentimentParams.to = filters.to;
+
     const sentimentReq = axios.get(`${API_BASE_URL}/sentiment`, {
-      params: { product: filters.product, platform: filters.source }
+      params: sentimentParams
     });
 
     const brandsReq = axios.get(`${API_BASE_URL}/sentiment/brands`)
@@ -137,9 +147,11 @@ export async function getAlerts() {
   }
 }
 
-export async function getBrandComparison() {
+export async function getBrandComparison(range = "30d") {
   try {
-    const response = await axios.get(`${API_BASE_URL}/sentiment/brands`);
+    const response = await axios.get(`${API_BASE_URL}/sentiment/brands`, {
+      params: { range }
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching brand comparison data:", error);

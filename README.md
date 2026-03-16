@@ -18,11 +18,12 @@ MarketForecaster aggregates consumer sentiment data from multiple sources — Am
 - Apple HomePod Mini
 
 **Key features:**
-- Real-time sentiment trend charts
-- Brand comparison analytics
-- AI-detected anomaly alerts
-- Sentiment Explorer with full-text search and filters
-- AI Insights card with trend summaries
+- Real-time sentiment trend charts (Last 7, 30, 90 days)
+- Brand comparison analytics with dynamic date filtering
+- AI-detected anomaly alerts with live feed
+- Sentiment Explorer with full-text search and faceted filters
+- **Live AI Chatbot**: High-fidelity market consultant with markdown support and persona tuning
+- AI Insights card with automated trend narratives
 - User authentication (JWT)
 
 ---
@@ -106,6 +107,7 @@ API docs available at: **http://localhost:8000/docs**
 MONGODB_URL=mongodb://localhost:27017
 DB_NAME=market_forecaster
 JWT_SECRET=your_secret_key_here
+OPENROUTER_API_KEY=your_openrouter_key
 ```
 
 ---
@@ -132,11 +134,11 @@ App available at: **http://localhost:5173**
 | `/login` | Login |
 | `/signup` | Sign up |
 | `/dashboard` | Overview (KPIs, trends, topics, alerts) |
-| `/dashboard/brands` | Brand Comparison |
+| `/dashboard/brands` | Brand Comparison (Date filtering synced) |
 | `/dashboard/explorer` | Sentiment Explorer (search + filter) |
-| `/dashboard/alerts` | AI Alerts |
-| `/dashboard/reports` | Reports *(coming soon)* |
-| `/dashboard/chatbot` | AI Chatbot *(coming soon)* |
+| `/dashboard/alerts` | AI Alerts (Live context-aware feed) |
+| `/dashboard/reports` | Exportable PDF/Excel Reports |
+| `/dashboard/chatbot` | **Market Consultant AI** (Markdown + SSE Streaming) |
 | `/dashboard/profile` | User Profile |
 
 ---
@@ -149,6 +151,7 @@ App available at: **http://localhost:5173**
 | Empty dashboard | Ensure MongoDB is running and `MONGODB_URL` is set correctly |
 | Login not working | Check `JWT_SECRET` is set in `backend/.env` |
 | Backend won't start | Run `pip install -r backend/requirements.txt` inside the venv |
+
 
 ---
 

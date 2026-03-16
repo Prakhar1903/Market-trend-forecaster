@@ -6,9 +6,9 @@ const AlertsPreviewPanel = ({ alerts }) => {
 
   const levelColor = (l = "") => {
     const lvl = l.toLowerCase();
-    if (lvl === "high" || lvl === "critical") return { bar: "bg-red-500", label: "text-red-400" };
-    if (lvl === "medium") return { bar: "bg-yellow-500", label: "text-yellow-400" };
-    return { bar: "bg-blue-500", label: "text-blue-400" };
+    if (lvl === "high" || lvl === "critical") return { border: "border-l-red-500", label: "text-red-400" };
+    if (lvl === "medium") return { border: "border-l-yellow-500", label: "text-yellow-400" };
+    return { border: "border-l-blue-500", label: "text-blue-400" };
   };
 
   return (
@@ -24,28 +24,24 @@ const AlertsPreviewPanel = ({ alerts }) => {
 
       <div className="flex flex-col gap-3 overflow-y-auto pr-2">
         {(alerts || []).map((a, idx) => {
-          const { bar, label } = levelColor(a.level);
+          const { border, label } = levelColor(a.level);
           return (
-            <div key={idx} className="flex gap-4 p-3 rounded-xl bg-slate-800/20 border border-white/5 relative overflow-hidden group hover:bg-slate-800/40 transition-all">
-              <div className={`absolute top-0 left-0 w-1 h-full ${bar}`} />
+            <div key={idx} className={`p-4 rounded-xl bg-slate-800/20 border border-white/5 border-l-4 ${border} flex flex-col gap-2 group hover:bg-slate-800/40 transition-all`}>
+              <div className="flex items-center justify-between gap-2">
+                <span className={`text-[10px] font-black uppercase tracking-widest ${label}`}>
+                  {a.level} Priority
+                </span>
 
-              <div className="flex flex-col gap-1 pl-1 w-full">
-                <div className="flex items-center justify-between gap-2">
-                  <span className={`text-[10px] font-black uppercase tracking-widest ${label}`}>
-                    {a.level} Priority
+                {a.time && (
+                  <span className="text-[10px] text-slate-600 font-medium flex-shrink-0">
+                    🕐 {a.time}
                   </span>
-
-                  {a.time && (
-                    <span className="text-[10px] text-slate-600 font-medium flex-shrink-0">
-                      🕐 {a.time}
-                    </span>
-                  )}
-                </div>
-
-                <p className="text-sm text-slate-300 leading-tight group-hover:text-slate-100 transition-colors">
-                  {a.message}
-                </p>
+                )}
               </div>
+
+              <p className="text-sm text-slate-300 leading-relaxed group-hover:text-slate-100 transition-colors">
+                {a.message}
+              </p>
             </div>
           );
         })}

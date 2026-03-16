@@ -175,12 +175,13 @@ const BrandComparison = () => {
   const [insight, setInsight] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [dateRange, setDateRange] = useState("30d");
 
   useEffect(() => {
     async function load() {
       setLoading(true);
       try {
-        const data = await getBrandComparison();
+        const data = await getBrandComparison(dateRange);
         setBrands(data.brands || []);
         setInsight(data.insight || '');
       } catch (e) {
@@ -191,7 +192,7 @@ const BrandComparison = () => {
       }
     }
     load();
-  }, []);
+  }, [dateRange]);
 
   if (loading) {
     return (
@@ -352,10 +353,14 @@ const BrandComparison = () => {
           <h1 className="text-3xl font-extrabold text-slate-100 tracking-tight">Brand Comparison</h1>
           <p className="text-slate-400">Side-by-side analysis of smart speaker market performance</p>
         </div>
-        <select className="bg-slate-900 border border-white/10 rounded-xl px-4 py-2 text-sm font-medium text-slate-300 outline-none cursor-pointer self-start">
-          <option>Last 30 Days</option>
-          <option>Last 7 Days</option>
-          <option>Last 90 Days</option>
+        <select
+          className="bg-slate-900 border border-white/10 rounded-xl px-4 py-2 text-sm font-medium text-slate-300 outline-none cursor-pointer self-start"
+          value={dateRange}
+          onChange={(e) => setDateRange(e.target.value)}
+        >
+          <option value="7d">Last 7 Days</option>
+          <option value="30d">Last 30 Days</option>
+          <option value="90d">Last 90 Days</option>
         </select>
       </div>
 

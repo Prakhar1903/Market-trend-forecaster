@@ -1,8 +1,9 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 import pandas as pd
 import os
 import re
 from collections import Counter
+from datetime import datetime, timedelta
 
 router = APIRouter()
 
@@ -29,7 +30,13 @@ STOPWORDS = {
 }
 
 @router.get("/sentiment")
-async def get_sentiment(product: str = None, platform: str = None):
+async def get_sentiment(
+    product: str = None, 
+    platform: str = None, 
+    range: str = "30d",
+    from_date: str = Query(None, alias="from"),
+    to_date: str = Query(None, alias="to")
+):
     if not os.path.exists(DATA_PATH):
         raise HTTPException(status_code=404, detail="Sentiment data not found")
 
@@ -37,21 +44,37 @@ async def get_sentiment(product: str = None, platform: str = None):
         # Read the tab-separated CSV
         df = pd.read_csv(DATA_PATH, sep="\t")
         
+        # Ensure date column is datetime
+        if 'date' in df.columns:
+            df['date'] = pd.to_datetime(df['date'])
+        else:
+            # Fallback if patch hasn't reached all rows (safety)
+            df['date'] = pd.to_datetime("2026-03-16")
+
         # Mapping frontend IDs to CSV values
         mapped_product = BRAND_MAP.get(product, product)
         mapped_platform = CHANNEL_MAP.get(platform, platform)
 
-        # Filter logic
+        # 1. Base Filters (Product & Platform)
         filtered_df = df.copy()
         if mapped_product and mapped_product.lower() != "all":
             filtered_df = filtered_df[filtered_df['product'].str.contains(mapped_product, case=False, na=False)]
         if mapped_platform and mapped_platform.lower() != "all":
             filtered_df = filtered_df[filtered_df['platform'].str.contains(mapped_platform, case=False, na=False)]
 
+        # 2. Date Range Filtering
+        now = datetime(2026, 3, 16) # Fixed "now" for demo consistency
+        
+        if range:
+            days_map = {"7d": 7, "30d": 30, "90d": 90}
+            days = days_map.get(range, 30)
+            start_limit = now - timedelta(days=days)
+            filtered_df = filtered_df[filtered_df['date'] >= start_limit]
+
         if filtered_df.empty:
             return {
                 "summary": {"overallSentiment": 0, "mentions": 0, "positivePct": 0, "negativePct": 0, "neutralPct": 0, "activeAlerts": 0},
-                "platform_breakdown": [],
+                "platform_breakdown": {},
                 "product_breakdown": [],
                 "recent_data": [],
                 "topics": [],
@@ -71,7 +94,6 @@ async def get_sentiment(product: str = None, platform: str = None):
         recent = filtered_df.tail(10)[['platform', 'product', 'text', 'sentiment_label', 'sentiment_score']].to_dict('records')
 
         # Topic Modeling (Weighted Keywords)
-        # We group by common phrases and calculate popularity
         TOPIC_KEYWORDS = {
             "Sound Quality": ["sound", "audio", "bass", "clear", "loud", "music", "speaker"],
             "Voice Recognition": ["alexa", "google", "voice", "hear", "understand", "assistant", "listen"],
@@ -95,55 +117,36 @@ async def get_sentiment(product: str = None, platform: str = None):
                     "popularity": popularity
                 })
         
-        # Sort topics by mentions
         topics = sorted(topics, key=lambda x: x['mentions'], reverse=True)
 
-        # AI Narrative Generation
-        product_name = mapped_product if mapped_product != "all" else "market-wide"
-        platform_name = mapped_platform if mapped_platform != "all" else "all sources"
-        
-        sentiment_word = "positive" if avg_sentiment > 0.1 else "negative" if avg_sentiment < -0.1 else "neutral"
-        
-        top_topic = topics[0]['name'] if topics else "general usage"
-        second_topic = topics[1]['name'] if len(topics) > 1 else ""
-        
+        # Platform Breakdown
         platform_breakdown = filtered_df.groupby('platform').size().to_dict()
-        top_platform = max(platform_breakdown, key=platform_breakdown.get) if platform_breakdown else "web"
         
-        if mapped_product != "all":
-            insight = f"{mapped_product} sentiment is currently {sentiment_word} across {platform_name}. "
-            insight += f"Key strength is {top_topic}" if avg_sentiment > 0 else f"Primary concern is {top_topic}"
-            if second_topic:
-                insight += f", with notable mentions of {second_topic}."
-            else:
-                insight += "."
-        else:
-            insight = f"The {platform_name} market shows {sentiment_word} signal today. "
-            insight += f"{top_topic} is the most discussed theme across all products."
-
-        # Trend Comparison
+        # Trend Comparison - Group by Date
         trend_comparison = {}
-        if product == "all" or not product:
+        
+        def get_brand_trend(b_df):
+            # Resilience check: if date is missing or invalid
+            if b_df.empty: return []
+            
+            # Group by date and calculate daily avg sentiment and mentions
+            daily = b_df.groupby(b_df['date'].dt.date).agg({
+                'sentiment_score': 'mean',
+                'text': 'count'
+            }).reset_index()
+            
+            daily.columns = ['date', 'sentiment', 'mentions']
+            daily['date'] = daily['date'].apply(lambda x: x.strftime("%Y-%m-%d"))
+            return daily.to_dict('records')
+
+        if not product or product == "all":
             for p_id, p_name in BRAND_MAP.items():
-                p_df = filtered_df[filtered_df['product'] == p_name]
+                p_df = filtered_df[filtered_df['product'].str.contains(p_name, case=False, na=False)]
                 if not p_df.empty:
-                    # Mock time series points (normally we'd groupby date)
-                    score = float(p_df['sentiment_score'].mean())
-                    trend_comparison[p_id] = [
-                        {"date": "2026-03-01", "sentiment": score * 0.8, "mentions": len(p_df) // 4},
-                        {"date": "2026-03-05", "sentiment": score * 0.95, "mentions": len(p_df) // 3},
-                        {"date": "2026-03-10", "sentiment": score, "mentions": len(p_df) // 4}
-                    ]
+                    trend_comparison[p_id] = get_brand_trend(p_df)
         else:
             # For exact product, return detailed trend
-            score = float(filtered_df['sentiment_score'].mean())
-            trend_comparison[product] = [
-                {"date": "2026-03-01", "sentiment": score * 0.7, "mentions": total_mentions // 4},
-                {"date": "2026-03-03", "sentiment": score * 0.8, "mentions": total_mentions // 4},
-                {"date": "2026-03-05", "sentiment": score * 0.9, "mentions": total_mentions // 3},
-                {"date": "2026-03-07", "sentiment": score * 0.85, "mentions": total_mentions // 4},
-                {"date": "2026-03-10", "sentiment": score, "mentions": total_mentions // 4}
-            ]
+            trend_comparison[product] = get_brand_trend(filtered_df)
 
         # Platform Breakdown with readable names
         READABLE_PLATFORM_MAP = {
@@ -152,6 +155,20 @@ async def get_sentiment(product: str = None, platform: str = None):
             "news": "News Articles",
             "web": "Review Sites"
         }
+        # AI Narrative Generation
+        product_name = mapped_product if mapped_product != "all" else "market-wide"
+        platform_name = mapped_platform if mapped_platform != "all" else "all sources"
+        
+        sentiment_word = "positive" if avg_sentiment > 0.1 else "negative" if avg_sentiment < -0.1 else "neutral"
+        top_topic = topics[0]['name'] if topics else "general usage"
+        
+        summary_text = (
+            f"Currently seeing {sentiment_word} sentiment ({avg_sentiment:+.2f}) for "
+            f"{product_name} across {platform_name}. "
+            f"The conversation is primarily focused on {top_topic}, "
+            f"with {total_mentions} total mentions analyzed in this period."
+        )
+
         readable_platform_breakdown = {}
         for p_id, count in platform_breakdown.items():
             readable_name = READABLE_PLATFORM_MAP.get(p_id, p_id.title())
@@ -166,22 +183,52 @@ async def get_sentiment(product: str = None, platform: str = None):
                 "neutralPct": neu_pct,
                 "activeAlerts": 2
             },
+            "summaryText": summary_text,
             "recent_data": recent,
             "topics": topics,
             "trend_comparison": trend_comparison,
             "platform_breakdown": readable_platform_breakdown,
         }
     except Exception as e:
+        import traceback
+        print(traceback.format_exc())
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/sentiment/brands")
-async def get_brand_comparison():
+async def get_brand_comparison(
+    range: str = "30d",
+    from_date: str = Query(None, alias="from"),
+    to_date: str = Query(None, alias="to")
+):
     """Return per-brand sentiment analytics for the Brand Comparison page."""
     if not os.path.exists(DATA_PATH):
         raise HTTPException(status_code=404, detail="Sentiment data not found")
 
     try:
         df = pd.read_csv(DATA_PATH, sep="\t")
+        
+        # Ensure date column is datetime
+        if 'date' in df.columns:
+            df['date'] = pd.to_datetime(df['date'])
+        else:
+            df['date'] = pd.to_datetime("2026-03-16")
+
+        # 1. Date Range Filtering
+        now = datetime(2026, 3, 16) # Fixed "now" for demo consistency
+        filtered_df = df.copy()
+
+        if from_date and to_date:
+            try:
+                start = pd.to_datetime(from_date)
+                end = pd.to_datetime(to_date)
+                filtered_df = filtered_df[(filtered_df['date'] >= start) & (filtered_df['date'] <= end)]
+            except:
+                pass 
+        elif range:
+            days_map = {"7d": 7, "30d": 30, "90d": 90}
+            days = days_map.get(range, 30)
+            start_limit = now - timedelta(days=days)
+            filtered_df = filtered_df[filtered_df['date'] >= start_limit]
 
         TOPIC_KEYWORDS = {
             "Sound Quality": ["sound", "audio", "bass", "clear", "loud", "music", "speaker"],
@@ -199,7 +246,7 @@ async def get_brand_comparison():
 
         result = []
         for brand in BRAND_CONFIGS:
-            bdf = df[df["product"].str.contains(brand["csv_key"], case=False, na=False)]
+            bdf = filtered_df[filtered_df["product"].str.contains(brand["csv_key"], case=False, na=False)]
             if bdf.empty:
                 continue
 
@@ -234,15 +281,14 @@ async def get_brand_comparison():
                     })
             topics_breakdown = sorted(topics_breakdown, key=lambda x: x["mentions"], reverse=True)
 
-            # Trend (mock time-series based on avg score)
-            score = avg_sent
-            trend = [
-                {"date": "2026-03-01", "sentiment": score * 0.75, "mentions": total // 5},
-                {"date": "2026-03-03", "sentiment": score * 0.85, "mentions": total // 4},
-                {"date": "2026-03-05", "sentiment": score * 0.90, "mentions": total // 4},
-                {"date": "2026-03-07", "sentiment": score * 0.95, "mentions": total // 4},
-                {"date": "2026-03-10", "sentiment": score,        "mentions": total // 5},
-            ]
+            # Real Data-Driven Trend
+            daily = bdf.groupby(bdf['date'].dt.date).agg({
+                'sentiment_score': 'mean',
+                'text': 'count'
+            }).reset_index()
+            daily.columns = ['date', 'sentiment', 'mentions']
+            daily['date'] = daily['date'].apply(lambda x: x.strftime("%Y-%m-%d"))
+            trend = daily.to_dict('records')
 
             # Status logic
             if avg_sent >= 0.25:

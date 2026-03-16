@@ -21,10 +21,11 @@ const Dashboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Filters - Source & Product
+  // Filters - Source, Product & Date Range
   const [filters, setFilters] = useState({
     source: "all",
     product: "all",
+    range: "30d",
   });
 
   const productOptions = [
@@ -47,7 +48,7 @@ const Dashboard = () => {
       }
     }
     load();
-  }, [filters.source, filters.product]);
+  }, [filters.source, filters.product, filters.range]);
 
   if (loading) {
     return (
@@ -79,7 +80,7 @@ const Dashboard = () => {
       </div>
 
       {/* Filter Bar */}
-      <div className="flex items-center gap-4 bg-slate-900/50 p-4 rounded-2xl border border-white/5 backdrop-blur-md">
+      <div className="flex flex-wrap items-center gap-4 bg-slate-900/50 p-4 rounded-2xl border border-white/5 backdrop-blur-md">
         <div className="flex items-center gap-3">
           <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Source</label>
           <select
@@ -97,7 +98,7 @@ const Dashboard = () => {
           </select>
         </div>
 
-        <div className="w-px h-6 bg-white/10" />
+        <div className="hidden md:block w-px h-6 bg-white/10" />
 
         <div className="flex items-center gap-3">
           <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Product</label>
@@ -115,6 +116,24 @@ const Dashboard = () => {
             ))}
           </select>
         </div>
+
+        <div className="hidden md:block w-px h-6 bg-white/10" />
+
+        <div className="flex items-center gap-3">
+          <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Date Range</label>
+          <select
+            className="bg-slate-950 border border-white/10 rounded-xl px-4 py-2 text-sm font-medium text-slate-300 focus:ring-2 focus:ring-primary/50 outline-none transition-all cursor-pointer min-w-40"
+            value={filters.range}
+            onChange={(e) =>
+              setFilters((f) => ({ ...f, range: e.target.value }))
+            }
+          >
+            <option value="7d">Last 7 Days</option>
+            <option value="30d">Last 30 Days</option>
+            <option value="90d">Last 90 Days</option>
+          </select>
+        </div>
+
       </div>
 
       {/* KPI Cards */}

@@ -11,6 +11,7 @@ build/
 # Local envs / secrets
 backend/.env
 backend/venv/
+backend/backend/
 .env
 .env.*
 !.env.example
