@@ -114,12 +114,6 @@ function AIInsightPanel({ insight, brands }) {
     brands.length > 1 && `💡 Sentiment spread across brands: ${brands.map(b => `${b.name} ${(b.sentiment * 100).toFixed(0)}`).join(' vs ')}.`,
   ].filter(Boolean);
 
-  // Highlight brand names in the paragraph
-  let highlighted = insight;
-  brands.forEach(b => {
-    // Wrap brand names in styled spans (we'll render as-is, just emphasize)
-  });
-
   return (
     <div className="glass-card p-8 border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
       <div className="flex items-start gap-5">

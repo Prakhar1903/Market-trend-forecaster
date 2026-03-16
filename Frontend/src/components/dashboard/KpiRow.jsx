@@ -21,7 +21,8 @@ const AnimatedNumber = ({ value, duration = 1000, suffix = "", decimals = 0 }) =
     };
 
     window.requestAnimationFrame(step);
-  }, [value]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, duration]);
 
   if (isNaN(displayValue)) return <span>0{suffix}</span>;
 

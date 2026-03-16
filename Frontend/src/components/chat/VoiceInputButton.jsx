@@ -23,6 +23,7 @@ const VoiceInputButton = ({ onTranscript, disabled }) => {
                 onTranscript(transcript);
             };
 
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setRecognition(recog);
         }
     }, [onTranscript]);

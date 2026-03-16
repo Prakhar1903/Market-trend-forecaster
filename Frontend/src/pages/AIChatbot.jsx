@@ -1,7 +1,6 @@
 // src/pages/AIChatbot.jsx
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/chatbot.css";
-import { sendChatMessage } from "../services/chatService";
 import SuggestedPrompts from "../components/chat/SuggestedPrompts";
 import TypingMessage from "../components/chat/TypingMessage";
 import AIThinkingIndicator from "../components/chat/AIThinkingIndicator";
@@ -253,12 +252,12 @@ const AIChatbot = () => {
                             try {
                               const data = JSON.parse(part.slice(9, -1));
                               return <InsightCard key={i} {...data} />;
-                            } catch (e) { return <span key={i}>{part}</span>; }
+                            } catch { return <span key={i}>{part}</span>; }
                           } else if (part.startsWith("[CHART:")) {
                             try {
                               const data = JSON.parse(part.slice(7, -1));
                               return <ChatChart key={i} {...data} />;
-                            } catch (e) { return <span key={i}>{part}</span>; }
+                            } catch { return <span key={i}>{part}</span>; }
                           } else if (part.trim()) {
                             return (
                               <div key={i} className="prose prose-invert max-w-none">
