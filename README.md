@@ -74,7 +74,7 @@ Market-trend-forecaster/
 ### 1 — Clone the repo
 
 ```bash
-git clone https://github.com/sukhvindersingh5/Market-trend-forecaster.git
+git clone https://github.com/Prakhar1903/Market-trend-forecaster.git
 cd Market-trend-forecaster
 ```
 
