@@ -150,11 +150,11 @@ function AlertCard({ alert, onDismiss }) {
     }
 
     return (
-        <div className={`glass-card border-l-4 ${cfg.border} ${cfg.glow} transition-all hover:bg-white/[0.04] group`}>
+        <div className={`glass-card border-l-4 ${cfg.border} ${cfg.glow} transition-all hover:bg-white/4 group`}>
             <div className="p-5 flex flex-col sm:flex-row sm:items-start gap-4">
 
                 {/* Type icon badge */}
-                <div className={`w-11 h-11 rounded-2xl flex items-center justify-center text-xl flex-shrink-0 ${cfg.icon_bg} ring-1 ring-white/5`}>
+                <div className={`w-11 h-11 rounded-2xl flex items-center justify-center text-xl shrink-0 ${cfg.icon_bg} ring-1 ring-white/5`}>
                     {meta.icon}
                 </div>
 
@@ -239,7 +239,7 @@ function AlertCard({ alert, onDismiss }) {
                 </div>
 
                 {/* Quick actions */}
-                <div className="flex flex-col gap-2 flex-shrink-0 self-start opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all">
+                <div className="flex flex-col gap-2 shrink-0 self-start opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all">
                     <button
                         onClick={handleInvestigate}
                         className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${investigating
@@ -350,7 +350,7 @@ const Alerts = () => {
                             className={`glass-card p-4 flex items-center gap-3 cursor-pointer hover:bg-white/5 transition-all ${filterType === t.key ? 'border border-primary/30 bg-primary/5' : ''
                                 }`}
                         >
-                            <span className={`w-9 h-9 rounded-xl ${t.bg} flex items-center justify-center text-base flex-shrink-0`}>
+                            <span className={`w-9 h-9 rounded-xl ${t.bg} flex items-center justify-center text-base shrink-0`}>
                                 {t.icon}
                             </span>
                             <div className="min-w-0">

@@ -55,7 +55,7 @@ function SentimentGauge({ sentiment }) {
   const score = (sentiment * 100).toFixed(1);
   const label = score > 0 ? `+${score}` : `${score}`;
   return (
-    <div className="flex flex-col gap-1 min-w-[110px]">
+    <div className="flex flex-col gap-1 min-w-27.5">
       <div className="flex items-center justify-between">
         <span className="text-[10px] text-slate-600 font-bold">-100</span>
         <span className="text-xs font-mono font-black" style={{ color }}>{label}</span>
@@ -115,10 +115,10 @@ function AIInsightPanel({ insight, brands }) {
   ].filter(Boolean);
 
   return (
-    <div className="glass-card p-8 border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+    <div className="glass-card p-8 border border-primary/20 bg-linear-to-br from-primary/5 to-transparent">
       <div className="flex items-start gap-5">
         {/* Icon */}
-        <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-2xl flex-shrink-0 ring-1 ring-primary/30">
+        <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-2xl shrink-0 ring-1 ring-primary/30">
           🤖
         </div>
 
@@ -135,7 +135,7 @@ function AIInsightPanel({ insight, brands }) {
           <ul className="flex flex-col gap-2.5">
             {keyInsights.map((item, i) => (
               <li key={i} className="flex gap-3 text-sm text-slate-300 leading-relaxed">
-                <span className="mt-0.5 flex-shrink-0 w-1 h-1 rounded-full bg-primary mt-2" />
+                <span className="mt-2 shrink-0 w-1 h-1 rounded-full bg-primary" />
                 <span>{item}</span>
               </li>
             ))}
@@ -383,7 +383,7 @@ const BrandComparison = () => {
                 <tr key={brand.id} className="hover:bg-white/5 transition-colors group">
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                      <div className="w-2.5 h-2.5 rounded-full shrink-0"
                         style={{ background: BRAND_COLORS[brand.id]?.border || '#38bdf8' }} />
                       <span className="font-bold text-slate-200 group-hover:text-primary transition-colors whitespace-nowrap">
                         {brand.name}
@@ -437,7 +437,7 @@ const BrandComparison = () => {
               </div>
               <StatusBadge status={brand.status} />
             </div>
-            <div className="flex-1 min-h-[200px]">
+            <div className="flex-1 min-h-50">
               <Line
                 data={{
                   labels: brand.trend.map(d =>
@@ -473,14 +473,14 @@ const BrandComparison = () => {
             <div key={brand.id} className="p-5 flex flex-col gap-4">
               {/* Brand label */}
               <div className="flex items-center gap-2">
-                <div className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                <div className="w-2.5 h-2.5 rounded-full shrink-0"
                   style={{ background: BRAND_COLORS[brand.id]?.border || '#38bdf8' }} />
                 <span className="font-bold text-slate-200">{brand.name}</span>
               </div>
 
               {/* Top topic highlight */}
               <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5">
-                <span className="text-xl flex-shrink-0">{TOPIC_ICONS[brand.top_topic] || '💬'}</span>
+                <span className="text-xl shrink-0">{TOPIC_ICONS[brand.top_topic] || '💬'}</span>
                 <div className="min-w-0">
                   <p className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Top Topic</p>
                   <p className="text-sm font-bold text-slate-100 mt-0.5 truncate">{brand.top_topic}</p>
@@ -493,21 +493,21 @@ const BrandComparison = () => {
                   const trend = getTopicTrend(topic.sentiment);
                   return (
                     <div key={topic.name} className="flex items-center gap-2">
-                      <span className="text-[10px] text-slate-600 w-3 font-bold flex-shrink-0">{i + 1}</span>
-                      <span className="text-xs flex-shrink-0">{TOPIC_ICONS[topic.name] || '💬'}</span>
+                      <span className="text-[10px] text-slate-600 w-3 font-bold shrink-0">{i + 1}</span>
+                      <span className="text-xs shrink-0">{TOPIC_ICONS[topic.name] || '💬'}</span>
                       <span className="text-xs text-slate-300 flex-1 min-w-0 truncate" title={topic.name}>{topic.name}</span>
                       {/* ③ Trend indicator */}
-                      <span className={`text-[9px] font-black whitespace-nowrap flex-shrink-0 ${trend.cls}`}
+                      <span className={`text-[9px] font-black whitespace-nowrap shrink-0 ${trend.cls}`}
                         title={`Avg sentiment: ${(topic.sentiment * 100).toFixed(1)}%`}>
                         {trend.label}
                       </span>
-                      <div className="w-16 h-1.5 rounded-full bg-white/5 overflow-hidden flex-shrink-0">
+                      <div className="w-16 h-1.5 rounded-full bg-white/5 overflow-hidden shrink-0">
                         <div
                           className="h-full rounded-full"
                           style={{ width: `${topic.pct}%`, background: BRAND_COLORS[brand.id]?.border, opacity: 0.75 }}
                         />
                       </div>
-                      <span className="text-[10px] text-slate-500 w-7 text-right flex-shrink-0 tabular-nums">
+                      <span className="text-[10px] text-slate-500 w-7 text-right shrink-0 tabular-nums">
                         {topic.pct}%
                       </span>
                     </div>

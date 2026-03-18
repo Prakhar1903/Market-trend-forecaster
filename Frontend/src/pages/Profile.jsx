@@ -63,7 +63,7 @@ const Profile = () => {
         <div className="max-w-2xl mx-auto">
           <div className="glass-card overflow-hidden relative">
             {/* Header Background Decoration */}
-            <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-r from-primary/20 to-secondary/20" />
+            <div className="absolute top-0 left-0 w-full h-32 bg-linear-to-r from-primary/20 to-secondary/20" />
 
             <div className="relative pt-16 pb-10 px-8 flex flex-col items-center">
               {/* Profile Picture */}

@@ -82,7 +82,7 @@ const KpiRow = ({ summary, filters }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {kpis.map((kpi, i) => (
-        <div key={i} className="glass-card p-6 relative group overflow-hidden flex flex-col justify-between min-h-[140px]">
+        <div key={i} className="glass-card p-6 relative group overflow-hidden flex flex-col justify-between min-h-35">
           <div className={`absolute top-0 left-0 w-1 h-full opacity-50 ${kpi.trendColor === 'text-accent' ? 'bg-accent' : 'bg-red-400'}`} />
 
           <div>

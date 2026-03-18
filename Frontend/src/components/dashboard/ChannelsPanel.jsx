@@ -39,7 +39,7 @@ const ChannelsPanel = ({ channels }) => {
               />
             </div>
 
-            <span className="text-[10px] text-slate-500 flex-shrink-0">
+            <span className="text-[10px] text-slate-500 shrink-0">
               {c.mentions.toLocaleString()} mentions
             </span>
           </div>

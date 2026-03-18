@@ -163,7 +163,7 @@ const TrendPanel = ({ trendData, activeProduct }) => {
   };
 
   return (
-    <div className="glass-card p-6 min-h-[500px] flex flex-col gap-6">
+    <div className="glass-card p-6 min-h-125 flex flex-col gap-6">
       <div>
         <h3 className="text-xl font-bold text-slate-100 flex items-center gap-2">
           <span className="text-primary">📈</span> Sentiment & Volume Trends
@@ -175,7 +175,7 @@ const TrendPanel = ({ trendData, activeProduct }) => {
         </p>
       </div>
 
-      <div className="flex-1 min-h-[350px]">
+      <div className="flex-1 min-h-87.5">
         {trendData && Object.keys(trendData).length > 0 ? (
           <Line data={chartData} options={options} />
         ) : (

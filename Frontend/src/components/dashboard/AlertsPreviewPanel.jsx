@@ -12,7 +12,7 @@ const AlertsPreviewPanel = ({ alerts }) => {
   };
 
   return (
-    <div className="glass-card p-6 flex flex-col gap-4 max-h-[520px]">
+    <div className="glass-card p-6 flex flex-col gap-4 max-h-130">
 
       <h3 className="text-lg font-bold text-slate-100 flex items-center gap-2">
         <span className="text-xl">🔔</span> Recent Alerts
@@ -33,7 +33,7 @@ const AlertsPreviewPanel = ({ alerts }) => {
                 </span>
 
                 {a.time && (
-                  <span className="text-[10px] text-slate-600 font-medium flex-shrink-0">
+                  <span className="text-[10px] text-slate-600 font-medium shrink-0">
                     🕐 {a.time}
                   </span>
                 )}

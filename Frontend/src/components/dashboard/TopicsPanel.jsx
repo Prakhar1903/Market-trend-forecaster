@@ -25,7 +25,7 @@ const TopicsPanel = ({ topics }) => {
               <span className="text-sm font-bold text-slate-200 group-hover:text-primary transition-colors truncate">
                 {t.name}
               </span>
-              <span className="text-[10px] font-black text-slate-500 bg-slate-950 px-1.5 py-0.5 rounded border border-white/5 flex-shrink-0">
+              <span className="text-[10px] font-black text-slate-500 bg-slate-950 px-1.5 py-0.5 rounded border border-white/5 shrink-0">
                 {(t.popularity || 0).toFixed(0)}%
               </span>
             </div>
@@ -39,7 +39,7 @@ const TopicsPanel = ({ topics }) => {
                   style={{ width: `${(t.popularity || 0)}%` }}
                 />
               </div>
-              <span className={`text-[9px] font-bold uppercase tracking-tighter flex-shrink-0 ${t.sentiment > 0.1 ? 'text-accent' : t.sentiment < -0.1 ? 'text-red-400' : 'text-slate-400'
+              <span className={`text-[9px] font-bold uppercase tracking-tighter shrink-0 ${t.sentiment > 0.1 ? 'text-accent' : t.sentiment < -0.1 ? 'text-red-400' : 'text-slate-400'
                 }`}>
                 {t.sentiment > 0.1 ? 'Positive' : t.sentiment < -0.1 ? 'Negative' : 'Neutral'}
               </span>
