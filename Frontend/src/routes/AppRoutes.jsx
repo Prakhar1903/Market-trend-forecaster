@@ -12,6 +12,7 @@ import Reports from "../pages/Reports";
 import FutureTrends from "../pages/FutureTrends";
 
 import AIChatbot from "../pages/AIChatbot";
+import Forecast from "../pages/Forecast";
 
 import DashboardLayout from "../components/DashboardLayout";
 import ProtectedRoute from "../components/ProtectedRoute";
@@ -42,6 +43,7 @@ const AppRoutes = () => {
 <Route path="future-trends" element={<FutureTrends />} />
 
         <Route path="chatbot" element={<AIChatbot />} />          {/* /dashboard/chatbot  */}
+        <Route path="forecast" element={<Forecast />} />          {/* /dashboard/forecast */}
       </Route>
     </Routes>
   );

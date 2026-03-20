@@ -1,8 +1,12 @@
+import os
 import requests
 import pandas as pd
 import time
+from dotenv import load_dotenv
 
-API_KEY = "65fe6afb3375bb9b0e51823b2edb3bfe"
+load_dotenv(dotenv_path="backend/.env")
+
+API_KEY = os.getenv("GNEWS_API_KEY")
 
 PRODUCTS = [
     "Amazon Alexa",

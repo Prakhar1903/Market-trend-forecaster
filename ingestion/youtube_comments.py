@@ -1,8 +1,12 @@
+import os
 import requests
 import pandas as pd
 import time
+from dotenv import load_dotenv
 
-API_KEY = "AIzaSyAA3P1bkxgK-re5ov95LQgOtdtmxNi7PE8"
+load_dotenv(dotenv_path="backend/.env")
+
+API_KEY = os.getenv("YOUTUBE_API_KEY")
 
 PRODUCT_QUERIES = [
     "Google Nest Mini review",

@@ -10,7 +10,7 @@ import ChatChart from "../components/chat/ChatChart";
 import VoiceInputButton from "../components/chat/VoiceInputButton";
 import { useChatStream } from "../hooks/useChatStream";
 import ReactMarkdown from "react-markdown";
-import { Copy, RefreshCw, Clock, Terminal } from "lucide-react";
+import { Copy, RefreshCw, Clock, Terminal, Maximize2, Minimize2 } from "lucide-react";
 
 const DEFAULT_WELCOME = "Hi! I'm your AI Market Intelligence assistant. Ask me about brand sentiment, trends, alerts, or any competitor insights. What would you like to know?";
 
@@ -35,6 +35,7 @@ const AIChatbot = () => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [showCommands, setShowCommands] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(false);
   const { streamChat } = useChatStream();
   const messagesEndRef = useRef(null);
 
@@ -180,7 +181,10 @@ const AIChatbot = () => {
   };
 
   return (
-    <div className="flex h-[calc(100vh-120px)] overflow-hidden rounded-3xl border border-white/10 shadow-2xl bg-slate-950/40 backdrop-blur-3xl">
+    <div className={`flex overflow-hidden transition-all duration-500 ease-in-out ${isMaximized
+      ? "fixed inset-0 w-screen h-screen z-[100] rounded-none bg-slate-950"
+      : "h-[calc(100vh-120px)] rounded-3xl border border-white/10 shadow-2xl bg-slate-950/40 backdrop-blur-3xl"
+      }`}>
       <ChatHistorySidebar
         conversations={conversations}
         currentChatId={currentChatId}
@@ -202,6 +206,24 @@ const AIChatbot = () => {
               </span>
             </div>
           </div>
+
+          <button
+            onClick={() => setIsMaximized(!isMaximized)}
+            className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all border border-white/5 flex items-center gap-2 group/max"
+            title={isMaximized ? "Exit Fullscreen" : "Maximize Chat"}
+          >
+            {isMaximized ? (
+              <>
+                <span className="text-[10px] font-bold uppercase tracking-wider opacity-0 group-hover/max:opacity-100 transition-opacity">Minimize</span>
+                <Minimize2 size={16} />
+              </>
+            ) : (
+              <>
+                <span className="text-[10px] font-bold uppercase tracking-wider opacity-0 group-hover/max:opacity-100 transition-opacity">Maximize</span>
+                <Maximize2 size={16} />
+              </>
+            )}
+          </button>
         </div>
 
         <div className="chatbot-messages flex-1 overflow-y-auto">
@@ -367,8 +389,8 @@ const AIChatbot = () => {
             </p>
           </div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 
