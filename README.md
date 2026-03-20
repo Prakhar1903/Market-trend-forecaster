@@ -22,7 +22,8 @@ MarketForecaster aggregates consumer sentiment data from multiple sources — Am
 - Brand comparison analytics with dynamic date filtering
 - AI-detected anomaly alerts with live feed
 - Sentiment Explorer with full-text search and faceted filters
-- **Live AI Chatbot**: High-fidelity market consultant with markdown support and persona tuning
+- **Market Forecast**: AI-powered sentiment predictions (p-value based) with Risk Meter and Key Drivers panels
+- **Live AI Assistant**: Context-aware floating chatbot that answers questions about the current page data
 - **Premium Reports**: Exportable PDF/Excel intelligence with dynamic charts and AI insights
 - **Intelligent Profile**: Progress tracking, image uploads (Avatar/Banner), and Quick Actions
 - User authentication (JWT)
@@ -142,6 +143,7 @@ App available at: **http://localhost:5173**
 | `/dashboard/alerts` | AI Alerts (Live context-aware feed) |
 | `/dashboard/reports` | Exportable PDF/Excel Reports |
 | `/dashboard/chatbot` | **Market Consultant AI** (Markdown + SSE Streaming) |
+| `/dashboard/forecast` | **Market Forecast** (Risk score + Key Drivers) |
 | `/dashboard/profile` | User Profile |
 
 ---
