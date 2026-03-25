@@ -8,7 +8,6 @@ const Login = () => {
   const [loading, setLoading] = useState(false); // 🔥 loading state
   const navigate = useNavigate();
 
-  const API_URL = import.meta.env.VITE_API_URL;
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -28,7 +27,8 @@ const Login = () => {
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-     
+      // ✅ Debug (optional)
+      console.log("Token stored:", data.access_token);
 
       // 🚀 Redirect
       navigate("/dashboard", { replace: true });
