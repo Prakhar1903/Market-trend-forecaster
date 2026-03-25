@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // 🔥 BASE API
-const API_BASE = import.meta.env.VITE_API_URL;;
+const API_BASE = "https://market-trend-forecaster.onrender.com";
 
 // 🔥 CREATE AXIOS INSTANCE
 const api = axios.create({
