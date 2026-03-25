@@ -8,6 +8,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false); // 🔥 loading state
   const navigate = useNavigate();
 
+  const API_URL = import.meta.env.VITE_API_URL;
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
