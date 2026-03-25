@@ -1,28 +1,57 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8000/auth";
+// 🔥 BASE API
+const API_BASE = "http://localhost:8000";
+
+// 🔥 CREATE AXIOS INSTANCE
+const api = axios.create({
+  baseURL: API_BASE,
+});
+
+// 🔐 AUTO ATTACH TOKEN TO EVERY REQUEST
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+// 🚨 HANDLE TOKEN EXPIRY / 401
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      alert("Session expired. Please login again.");
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "/login";
+    }
+    return Promise.reject(error);
+  }
+);
+
+
+// 🔐 AUTH APIs
 
 export const signup = async (userData) => {
-  const response = await axios.post(`${API_URL}/signup`, userData);
+  const response = await api.post("/auth/signup", userData);
   return response.data;
 };
 
 export const login = async (credentials) => {
-  const response = await axios.post(`${API_URL}/login`, credentials);
+  const response = await api.post("/auth/login", credentials);
   return response.data;
 };
 
-// Profile methods
+
+// 👤 PROFILE APIs
+
 export const getProfile = async () => {
-  const response = await axios.get(`http://localhost:8000/users/profile`, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
-  });
+  const response = await api.get("/users/profile");
 
   const userData = response.data;
 
-  // Return consistent structure for the UI
   return {
     name: userData.full_name || userData.username,
     username: userData.username,
@@ -38,49 +67,49 @@ export const getProfile = async () => {
   };
 };
 
+
 export const updateProfile = async (profileData) => {
-  // Map back name to full_name for backend if needed
   const apiData = {
     username: profileData.username,
     full_name: profileData.name
   };
-  const response = await axios.put(`http://localhost:8000/users/profile`, apiData, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
-  });
+
+  const response = await api.put("/users/profile", apiData);
   return response.data;
 };
 
+
 export const updatePassword = async (passwordData) => {
-  const response = await axios.put(`http://localhost:8000/users/password`, passwordData, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
-  });
+  const response = await api.put("/users/password", passwordData);
   return response.data;
 };
+
+
+// 📸 FILE UPLOADS
 
 export const uploadAvatar = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
-  const response = await axios.post(`http://localhost:8000/users/upload-avatar`, formData, {
+
+  const response = await api.post("/users/upload-avatar", formData, {
     headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${localStorage.getItem("token")}`
+      "Content-Type": "multipart/form-data"
     }
   });
+
   return response.data;
 };
+
 
 export const uploadBanner = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
-  const response = await axios.post(`http://localhost:8000/users/upload-banner`, formData, {
+
+  const response = await api.post("/users/upload-banner", formData, {
     headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${localStorage.getItem("token")}`
+      "Content-Type": "multipart/form-data"
     }
   });
+
   return response.data;
 };
