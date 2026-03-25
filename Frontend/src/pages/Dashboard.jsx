@@ -10,14 +10,12 @@ import AlertsPreviewPanel from "../components/dashboard/AlertsPreviewPanel";
 import SummaryPanel from "../components/dashboard/SummaryPanel";
 import RecentActivityPanel from "../components/dashboard/RecentActivityPanel";
 
-
-
-
 const Dashboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [updating, setUpdating] = useState(false);
 
-  // Filters - Source, Product & Date Range
+  // Filters
   const [filters, setFilters] = useState({
     source: "all",
     product: "all",
@@ -31,32 +29,76 @@ const Dashboard = () => {
     { id: "homepod-mini", label: "Apple HomePod Mini" },
   ];
 
-  useEffect(() => {
-    async function load() {
-      setLoading(true);
-      try {
-        const overview = await getDashboardOverview(filters);
-        setData(overview);
-      } catch (error) {
-        console.error("Dashboard load error:", error);
-      } finally {
-        setLoading(false);
-      }
+  // 🔥 Load Dashboard Data
+  const loadDashboard = async () => {
+    setLoading(true);
+    try {
+      const overview = await getDashboardOverview(filters);
+      setData(overview);
+    } catch (error) {
+      console.error("Dashboard load error:", error);
+    } finally {
+      setLoading(false);
     }
-    load();
+  };
+
+  useEffect(() => {
+    loadDashboard();
   }, [filters]);
 
+  // 🔥 Update Reviews API Call
+  const updateReviews = async () => {
+    setUpdating(true);
+
+    try {
+      const token = localStorage.getItem("token");
+
+      // 🚨 If token missing
+      if (!token) {
+        alert("Please login first!");
+        setUpdating(false);
+        return;
+      }
+
+      const res = await fetch("http://localhost:8000/api/update-reviews", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      // 🚨 If unauthorized
+      if (res.status === 401) {
+        alert("Session expired. Please login again.");
+        setUpdating(false);
+        return;
+      }
+
+      const result = await res.json();
+      alert(result.message || "Reviews updated successfully!");
+
+      // 🔄 Refresh dashboard
+      await loadDashboard();
+
+    } catch (err) {
+      console.error("Update error:", err);
+      alert("Failed to update reviews");
+    } finally {
+      setUpdating(false);
+    }
+  };
+
+  // 🔄 Loading UI
   if (loading) {
     return (
-
-
       <div className="dashboard" style={{ padding: "100px", textAlign: "center" }}>
         <div>Loading dashboard...</div>
       </div>
-
     );
   }
 
+  // ❌ No Data UI
   if (!data) {
     return (
       <div className="dashboard empty-state">
@@ -69,18 +111,41 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col gap-8 animate-in fade-in duration-700">
-      {/* Header */}
-      <div className="flex flex-col gap-1">
-        <h1 className="text-3xl font-extrabold text-slate-100 tracking-tight">Market Overview</h1>
-        <p className="text-slate-400">AI-powered trend & sentiment analysis across all products</p>
+
+      {/* 🔥 HEADER + BUTTON */}
+      <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-1">
+          <h1 className="text-3xl font-extrabold text-slate-100 tracking-tight">
+            Market Overview
+          </h1>
+          <p className="text-slate-400">
+            AI-powered trend & sentiment analysis across all products
+          </p>
+        </div>
+
+        <button
+          onClick={updateReviews}
+          disabled={updating}
+          className={`px-4 py-2 rounded-xl text-sm font-semibold shadow-md transition ${
+            updating
+              ? "bg-gray-500 cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700 text-white"
+          }`}
+        >
+          {updating ? "Updating..." : "🔄 Update Reviews"}
+        </button>
       </div>
 
-      {/* Filter Bar */}
+      {/* 🔍 FILTER BAR */}
       <div className="flex flex-wrap items-center gap-4 bg-slate-900/50 p-4 rounded-2xl border border-white/5 backdrop-blur-md">
+
+        {/* SOURCE */}
         <div className="flex items-center gap-3">
-          <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Source</label>
+          <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">
+            Source
+          </label>
           <select
-            className="bg-slate-950 border border-white/10 rounded-xl px-4 py-2 text-sm font-medium text-slate-300 focus:ring-2 focus:ring-primary/50 outline-none transition-all cursor-pointer min-w-40"
+            className="bg-slate-950 border border-white/10 rounded-xl px-4 py-2 text-sm text-slate-300"
             value={filters.source}
             onChange={(e) =>
               setFilters((f) => ({ ...f, source: e.target.value }))
@@ -96,10 +161,13 @@ const Dashboard = () => {
 
         <div className="hidden md:block w-px h-6 bg-white/10" />
 
+        {/* PRODUCT */}
         <div className="flex items-center gap-3">
-          <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Product</label>
+          <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">
+            Product
+          </label>
           <select
-            className="bg-slate-950 border border-white/10 rounded-xl px-4 py-2 text-sm font-medium text-slate-300 focus:ring-2 focus:ring-primary/50 outline-none transition-all cursor-pointer min-w-40"
+            className="bg-slate-950 border border-white/10 rounded-xl px-4 py-2 text-sm text-slate-300"
             value={filters.product}
             onChange={(e) =>
               setFilters((f) => ({ ...f, product: e.target.value }))
@@ -115,10 +183,13 @@ const Dashboard = () => {
 
         <div className="hidden md:block w-px h-6 bg-white/10" />
 
+        {/* DATE RANGE */}
         <div className="flex items-center gap-3">
-          <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Date Range</label>
+          <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">
+            Date Range
+          </label>
           <select
-            className="bg-slate-950 border border-white/10 rounded-xl px-4 py-2 text-sm font-medium text-slate-300 focus:ring-2 focus:ring-primary/50 outline-none transition-all cursor-pointer min-w-40"
+            className="bg-slate-950 border border-white/10 rounded-xl px-4 py-2 text-sm text-slate-300"
             value={filters.range}
             onChange={(e) =>
               setFilters((f) => ({ ...f, range: e.target.value }))
@@ -129,29 +200,32 @@ const Dashboard = () => {
             <option value="90d">Last 90 Days</option>
           </select>
         </div>
-
       </div>
 
-      {/* KPI Cards */}
+      {/* 📊 KPI */}
       <KpiRow summary={data.summary} filters={filters} />
 
-      {/* Main Grid: Trend + Topics */}
+      {/* 📈 MAIN GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-          <TrendPanel trendData={data.trend_comparison} activeProduct={filters.product} />
+          <TrendPanel
+            trendData={data.trend_comparison}
+            activeProduct={filters.product}
+          />
         </div>
         <div>
           <TopicsPanel topics={data.topics} />
         </div>
       </div>
 
-      {/* Bottom Grid: Channels + Alerts + Summary + Activity */}
+      {/* 📦 BOTTOM GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
         <ChannelsPanel channels={data.channels} />
         <AlertsPreviewPanel alerts={data.alerts} />
         <SummaryPanel text={data.summaryText} />
         <RecentActivityPanel activities={data.recent_data} />
       </div>
+
     </div>
   );
 };
