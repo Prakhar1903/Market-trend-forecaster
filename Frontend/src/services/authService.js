@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // 🔥 BASE API
-const API_BASE = "https://market-trend-forecaster.onrender.com";
+const API_BASE = "http://localhost:8000";
 
 // 🔥 CREATE AXIOS INSTANCE
 const api = axios.create({
