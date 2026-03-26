@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { MessageSquare } from 'lucide-react';
+import { Outlet, useNavigate, useLocation, Link } from 'react-router-dom';
+import { MessageSquare, BarChart3, ChevronRight } from 'lucide-react';
 import { getProfile } from '../services/authService';
 
 const getAILabel = (pathname) => {
@@ -72,14 +72,14 @@ const DashboardLayout = () => {
         {/* Left — brand + page title */}
         <div className="flex items-center gap-6">
           {/* Logo / brand */}
-          <div className="flex items-center gap-2.5 shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-linear-to-br from-primary to-secondary flex items-center justify-center text-sm font-black text-white shadow-[0_0_16px_rgba(56,189,248,0.4)]">
-              M
+          <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
+            <div className="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center border border-primary/30 group-hover:scale-110 transition-transform shadow-[0_0_16px_rgba(56,189,248,0.4)]">
+              <BarChart3 className="text-primary w-5 h-5" />
             </div>
-            <span className="text-base font-black text-gradient tracking-tight hidden sm:block">
-              MarketForecaster
+            <span className="text-xl font-black text-white tracking-tighter uppercase italic hidden sm:block">
+              Market AI
             </span>
-          </div>
+          </Link>
 
           {/* Divider */}
           <div className="w-px h-5 bg-white/10 hidden md:block" />
@@ -136,34 +136,41 @@ const DashboardLayout = () => {
       <div className="flex flex-1 overflow-hidden">
 
         {/* Sidebar */}
-        <aside className="w-60 shrink-0 bg-slate-900/30 border-r border-white/10 p-4 flex flex-col gap-1 overflow-y-auto">
+        <aside className="w-64 shrink-0 bg-slate-900/50 backdrop-blur-md border-r border-white/10 p-4 flex flex-col gap-2 overflow-y-auto">
           {NAV_ITEMS.map((item) => {
             const isActive = location.pathname === item.path;
             return (
               <button
                 key={item.id}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group cursor-pointer text-left w-full ${isActive
-                  ? 'bg-primary/10 text-primary border border-primary/20 shadow-[0_0_20px_rgba(56,189,248,0.08)]'
-                  : 'text-slate-400 hover:bg-white/5 hover:text-slate-200 border border-transparent'
+                className={`relative flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-300 group cursor-pointer text-left w-full overflow-hidden ${isActive
+                  ? 'text-white border border-primary/30 shadow-[0_0_20px_rgba(56,189,248,0.15)] bg-slate-800/50'
+                  : 'text-slate-400 hover:bg-slate-800/30 hover:text-slate-200 border border-transparent'
                   }`}
                 onClick={() => navigate(item.path)}
               >
-                <span className={`text-base transition-transform group-hover:scale-110 ${isActive ? 'scale-110' : ''}`}>
+                {/* Holographic Active Indicator */}
+                {isActive && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent opacity-50 pointer-events-none" />
+                )}
+                
+                <span className={`text-lg transition-transform group-hover:scale-110 ${isActive ? 'scale-110' : ''} relative z-10`}>
                   {item.icon}
                 </span>
-                <span className="font-medium text-sm truncate">{item.label}</span>
+                <span className="font-bold text-sm truncate uppercase tracking-wider relative z-10">{item.label}</span>
+                
+                {/* Right Chevron for Active State */}
                 {isActive && (
-                  <span className="ml-auto w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                  <ChevronRight className="ml-auto w-4 h-4 text-primary relative z-10 opacity-70" />
                 )}
               </button>
             );
           })}
 
           {/* Sidebar footer — version badge */}
-          <div className="mt-auto pt-4 border-t border-white/5">
-            <div className="px-4 py-2 rounded-xl bg-white/2 border border-white/5">
-              <p className="text-[10px] text-slate-600 font-bold uppercase tracking-widest">MarketForecaster</p>
-              <p className="text-[10px] text-slate-700 mt-0.5">v0.1 · Beta</p>
+          <div className="mt-auto pt-6 border-t border-white/5">
+            <div className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 flex flex-col items-center justify-center text-center">
+              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest italic">Market AI</p>
+              <p className="text-[10px] text-primary mt-1 font-mono bg-primary/10 px-2 py-0.5 rounded-full">v1.0.0-PRO</p>
             </div>
           </div>
         </aside>
@@ -178,24 +185,31 @@ const DashboardLayout = () => {
 
       {/* ── Floating AI FAB ──────────────────────────────────── */}
       {location.pathname !== '/dashboard/chatbot' && (
-        <div className="group fixed bottom-6 right-6 z-50">
-          {/* Glow Effect */}
-          <div className="absolute inset-0 rounded-full bg-primary/40 blur-xl opacity-0 group-hover:opacity-100 animate-pulse transition-opacity duration-500"></div>
+        <div className="group fixed bottom-8 right-8 z-50">
+          {/* Intense Glow Atmosphere */}
+          <div className="absolute inset-0 rounded-full bg-primary/50 blur-[30px] opacity-0 group-hover:opacity-100 animate-pulse transition-opacity duration-700 scale-150"></div>
+          
+          <div className="absolute inset-0 rounded-full bg-secondary/50 blur-[20px] opacity-50 group-hover:opacity-100 animate-pulse transition-opacity duration-500 delay-150"></div>
 
           {/* Tooltip */}
-          <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 bg-slate-900/90 backdrop-blur-md border border-white/10 text-xs px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap shadow-2xl">
-            Open AI Assistant
+          <div className="absolute right-full mr-6 top-1/2 -translate-y-1/2 bg-slate-900/90 backdrop-blur-xl border border-primary/30 text-slate-200 text-xs font-bold tracking-widest uppercase px-4 py-2.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap shadow-[0_0_20px_rgba(56,189,248,0.2)]">
+            Open Intelligence Layer
           </div>
 
           <button
             onClick={() => navigate("/dashboard/chatbot")}
-            className="relative flex items-center gap-2 px-5 py-3 rounded-full bg-linear-to-r from-primary to-secondary text-white font-bold text-sm shadow-[0_8px_32px_rgba(56,189,248,0.4)] hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden border border-white/20"
+            className="relative flex items-center gap-3 px-6 py-4 rounded-full bg-linear-to-r from-primary to-secondary text-white font-black text-sm shadow-[0_8px_32px_rgba(56,189,248,0.5)] hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden border border-white/30 backdrop-blur-md"
           >
-            <span className="text-base">⚡</span>
-            <span>{getAILabel(location.pathname)}</span>
+            {/* Inner shimmer effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+            
+            <span className="text-xl relative z-10">⚡</span>
+            <span className="relative z-10">{getAILabel(location.pathname)}</span>
 
-            {/* Notification Indicator */}
-            <span className="absolute top-1 right-2 w-2.5 h-2.5 bg-accent rounded-full animate-pulse shadow-[0_0_8px_#10b981]"></span>
+            {/* Notification Indicator Loop */}
+            <span className="absolute top-2 right-3 w-2.5 h-2.5 bg-accent rounded-full shadow-[0_0_12px_#10b981]">
+              <span className="absolute inset-0 rounded-full bg-accent animate-ping opacity-75"></span>
+            </span>
           </button>
         </div>
       )}

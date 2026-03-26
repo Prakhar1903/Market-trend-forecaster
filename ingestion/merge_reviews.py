@@ -73,7 +73,6 @@ merged = pd.concat(all_dfs, ignore_index=True)
 
 # 🔹 CLEAN (SAFE)
 merged["text"] = merged["text"].astype(str)
-merged["date"] = datetime.today().strftime("%Y-%m-%d")
 merged = merged.drop_duplicates(subset=["text"])
 merged = merged[merged["text"].str.len() > 20]
 
@@ -89,7 +88,7 @@ if os.path.exists(OUTPUT_FILE):
     combined = pd.concat([existing, merged], ignore_index=True)
     combined["text"] = combined["text"].astype(str)
 
-    combined = combined.drop_duplicates(subset=["text", "date"])
+    combined = combined.drop_duplicates(subset=["text"])
 
     added_count = max(len(combined) - len(existing), 0)
 

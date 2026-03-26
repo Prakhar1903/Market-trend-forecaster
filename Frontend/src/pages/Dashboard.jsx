@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 import "../styles/dashboard.css";
 import { getDashboardOverview } from "../services/dashboardService";
@@ -48,42 +50,44 @@ const Dashboard = () => {
 
   // 🔥 Update Reviews API Call
   const updateReviews = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      toast.error("Please login first!");
+      return;
+    }
+
     setUpdating(true);
+    const updatePromise = fetch("http://localhost:8000/api/update-reviews", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }).then(async (res) => {
+      if (res.status === 401) {
+        throw new Error("Session expired. Please login again.");
+      }
+      if (!res.ok) {
+        throw new Error("Failed to update reviews");
+      }
+      const result = await res.json();
+      return result.message || "Reviews updated successfully!";
+    });
+
+    toast.promise(updatePromise, {
+      loading: "Updating reviews and analyzing sentiment...",
+      success: (msg) => {
+        loadDashboard();
+        return msg;
+      },
+      error: (err) => err.message,
+    });
 
     try {
-      const token = localStorage.getItem("token");
-
-      // 🚨 If token missing
-      if (!token) {
-        alert("Please login first!");
-        setUpdating(false);
-        return;
-      }
-
-      const res = await fetch("http://localhost:8000/api/update-reviews", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      // 🚨 If unauthorized
-      if (res.status === 401) {
-        alert("Session expired. Please login again.");
-        setUpdating(false);
-        return;
-      }
-
-      const result = await res.json();
-      alert(result.message || "Reviews updated successfully!");
-
-      // 🔄 Refresh dashboard
-      await loadDashboard();
-
+      await updatePromise;
     } catch (err) {
       console.error("Update error:", err);
-      alert("Failed to update reviews");
     } finally {
       setUpdating(false);
     }
@@ -110,7 +114,12 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="flex flex-col gap-8 animate-in fade-in duration-700">
+    <motion.div 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="flex flex-col gap-8"
+    >
 
       {/* 🔥 HEADER + BUTTON */}
       <div className="flex items-center justify-between">
@@ -226,7 +235,7 @@ const Dashboard = () => {
         <RecentActivityPanel activities={data.recent_data} />
       </div>
 
-    </div>
+    </motion.div>
   );
 };
 

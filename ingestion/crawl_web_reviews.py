@@ -1,7 +1,9 @@
 import asyncio
 import pandas as pd
 import re
+import re
 import os
+import sys
 
 # 🔥 SAFE IMPORT (avoid crash if not installed)
 try:
@@ -32,6 +34,13 @@ def clean_text(text):
 
 
 async def crawl_reviews():
+    # 🔹 Incremental Scraping (Skip static web reviews if checked within 24h)
+    if len(sys.argv) > 1:
+        cutoff = pd.to_datetime(sys.argv[1], errors="coerce")
+        if pd.notnull(cutoff) and (pd.Timestamp.now() - cutoff).total_seconds() < 86400:
+            print(0)
+            return
+
     all_reviews = []
 
     async with AsyncWebCrawler(verbose=False) as crawler:

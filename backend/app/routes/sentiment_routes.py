@@ -63,11 +63,11 @@ async def get_sentiment(
             filtered_df = filtered_df[filtered_df['platform'].str.contains(mapped_platform, case=False, na=False)]
 
         # 2. Date Range Filtering
-        now = datetime(2026, 3, 16) # Fixed "now" for demo consistency
+        now = datetime.now() # Dynamic now for real-time analytics
         
-        if range:
-            days_map = {"7d": 7, "30d": 30, "90d": 90}
-            days = days_map.get(range, 30)
+        if range and range.lower() != "all":
+            days_map = {"1d": 1, "today": 1, "7d": 7, "30d": 30, "90d": 90}
+            days = days_map.get(range.lower(), 30)
             start_limit = now - timedelta(days=days)
             filtered_df = filtered_df[filtered_df['date'] >= start_limit]
 
@@ -214,7 +214,7 @@ async def get_brand_comparison(
             df['date'] = pd.to_datetime("2026-03-16")
 
         # 1. Date Range Filtering
-        now = datetime(2026, 3, 16) # Fixed "now" for demo consistency
+        now = datetime.now() # Dynamic now for real-time analytics
         filtered_df = df.copy()
 
         if from_date and to_date:
@@ -225,7 +225,7 @@ async def get_brand_comparison(
             except:
                 pass 
         elif range:
-            days_map = {"7d": 7, "30d": 30, "90d": 90}
+            days_map = {"1d": 1, "today": 1, "7d": 7, "30d": 30, "90d": 90}
             days = days_map.get(range, 30)
             start_limit = now - timedelta(days=days)
             filtered_df = filtered_df[filtered_df['date'] >= start_limit]
@@ -336,14 +336,35 @@ async def get_brand_comparison(
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/sentiment/alerts")
-async def get_alerts():
-    """Compute AI-powered alerts from real sentiment data."""
+@router.get("/sentiment/alerts")
+async def get_alerts(range: str = "30d"):
+    """Compute AI-powered alerts from real sentiment data with date filtering."""
     if not os.path.exists(DATA_PATH):
         raise HTTPException(status_code=404, detail="Sentiment data not found")
 
     try:
         import random, hashlib
         df = pd.read_csv(DATA_PATH, sep="\t")
+
+        # 🕒 Ensure date column is datetime
+        if 'date' in df.columns:
+            df['date'] = pd.to_datetime(df['date'])
+        else:
+            df['date'] = pd.to_datetime("2026-03-16")
+
+        # 📅 Date Filter
+        if range.lower() != "all":
+            now = pd.Timestamp.now()
+            days_map = {"today": 1, "7d": 7, "30d": 30, "90d": 90}
+            days = days_map.get(range.lower(), 30)
+            cutoff = now - timedelta(days=days)
+            df = df[df['date'] >= cutoff]
+
+        if df.empty:
+            return {
+                "alerts": [],
+                "summary": {"critical": 0, "risks": 0, "spikes": 0, "trending": 0, "surges": 0, "competitors": 0}
+            }
 
         TOPIC_KEYWORDS = {
             "Sound Quality":     ["sound", "audio", "bass", "clear", "loud", "music", "speaker"],
@@ -612,6 +633,7 @@ async def get_sentiment_explorer(
     sentiment: str = "all",
     topic: str = "all",
     search: str = "",
+    range: str = "all",
     page: int = 1,
     page_size: int = 20
 ):
@@ -651,6 +673,19 @@ async def get_sentiment_explorer(
         if topic != "all" and topic in TOPIC_KEYWORDS:
             pattern = "|".join(TOPIC_KEYWORDS[topic])
             filtered_df = filtered_df[filtered_df['text'].str.contains(pattern, case=False, na=False)]
+
+        # Date Filter
+        if range != "all":
+            now = datetime.now()
+            days_map = {"1d": 1, "today": 1, "7d": 7, "30d": 30, "90d": 90}
+            days = days_map.get(range.lower(), 0)
+            if days > 0:
+                start_limit = now - timedelta(days=days)
+                try:
+                    df_date = pd.to_datetime(filtered_df['date'], errors='coerce')
+                    filtered_df = filtered_df[df_date >= start_limit]
+                except Exception as e:
+                    pass
 
         # Search Filter
         if search:

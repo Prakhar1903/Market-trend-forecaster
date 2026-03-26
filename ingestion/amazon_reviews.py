@@ -28,6 +28,14 @@ df_clean = pd.DataFrame({
 df_clean = df_clean.dropna(subset=["review_content"])
 df_clean = df_clean[df_clean["review_content"].str.strip() != ""]
 
+# 🔹 Incremental Scraping Filter
+import sys
+if len(sys.argv) > 1:
+    cutoff_date = pd.to_datetime(sys.argv[1], errors="coerce")
+    if pd.notnull(cutoff_date):
+        dt_col = pd.to_datetime(df_clean["review_date"], format="%d-%b-%y", errors="coerce")
+        df_clean = df_clean[dt_col >= cutoff_date]
+
 # 🔹 Ensure output directory exists
 os.makedirs(output_dir, exist_ok=True)
 

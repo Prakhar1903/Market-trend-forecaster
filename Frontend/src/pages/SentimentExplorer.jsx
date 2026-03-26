@@ -10,6 +10,7 @@ const SentimentExplorer = () => {
         sentiment: "all",
         topic: "all",
         search: "",
+        range: "30d",
         page: 1
     });
 
@@ -65,7 +66,7 @@ const SentimentExplorer = () => {
 
             {/* Filter Bar */}
             <div className="flex flex-col gap-4 bg-slate-900/50 p-6 rounded-2xl border border-white/5 backdrop-blur-md">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                     <div className="flex flex-col gap-2">
                         <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Source</label>
                         <select
@@ -118,6 +119,19 @@ const SentimentExplorer = () => {
                             {topicOptions.map(opt => (
                                 <option key={opt.id} value={opt.id}>{opt.label}</option>
                             ))}
+                        </select>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Date Range</label>
+                        <select
+                            className="bg-slate-950 border border-white/10 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-300 outline-none focus:ring-2 focus:ring-primary/50 transition-all cursor-pointer"
+                            value={filters.range}
+                            onChange={(e) => handleFilterChange("range", e.target.value)}
+                        >
+                            <option value="7d">Last 7 Days</option>
+                            <option value="30d">Last 30 Days</option>
+                            <option value="90d">Last 90 Days</option>
                         </select>
                     </div>
                 </div>

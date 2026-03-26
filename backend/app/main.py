@@ -23,7 +23,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/static", StaticFiles(directory="backend/app/static"), name="static")
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
 app.include_router(user_router, prefix="/users", tags=["users"])
