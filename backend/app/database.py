@@ -6,9 +6,14 @@ load_dotenv()
 
 MONGODB_URL = os.getenv("MONGODB_URL")
 
-print("MONGODB_URL:", MONGODB_URL)   # 👈 ADD THIS
+if not MONGODB_URL:
+    raise Exception("MONGODB_URL is not set")
 
 client = AsyncIOMotorClient(MONGODB_URL)
+
+# DATABASE
 database = client["market_trend_db"]
 
+# COLLECTIONS (IMPORTANT)
 users_collection = database["users"]
+raw_data_collection = database["raw_data"]
