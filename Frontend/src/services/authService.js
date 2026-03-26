@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 
 // 🔥 BASE API
 const API_BASE = "http://localhost:8000";
@@ -22,7 +23,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      alert("Session expired. Please login again.");
+      toast.error("Session expired. Please login again.");
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       window.location.href = "/login";

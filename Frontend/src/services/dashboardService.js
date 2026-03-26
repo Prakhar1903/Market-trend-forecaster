@@ -125,6 +125,7 @@ export async function getSentimentExplorerData(filters) {
         sentiment: filters.sentiment,
         topic: filters.topic,
         search: filters.search,
+        range: filters.range,
         page: filters.page,
         page_size: 20
       }
@@ -137,9 +138,11 @@ export async function getSentimentExplorerData(filters) {
   }
 }
 
-export async function getAlerts() {
+export async function getAlerts(range = "30d") {
   try {
-    const response = await axios.get(`${API_BASE_URL}/sentiment/alerts`);
+    const response = await axios.get(`${API_BASE_URL}/sentiment/alerts`, {
+      params: { range }
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching alerts:", error);

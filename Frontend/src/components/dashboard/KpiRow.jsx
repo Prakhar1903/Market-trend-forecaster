@@ -1,33 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { motion } from "framer-motion";
+import AnimatedCounter from "../common/AnimatedCounter";
 
-const AnimatedNumber = ({ value, duration = 1000, suffix = "", decimals = 0 }) => {
-  const [displayValue, setDisplayValue] = useState(0);
-
-  useEffect(() => {
-    let startTimestamp = null;
-    const endValue = typeof value === 'number' ? value : parseFloat(value) || 0;
-    const startValue = displayValue;
-
-    const step = (timestamp) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      const current = progress * (endValue - startValue) + startValue;
-
-      setDisplayValue(current);
-
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      }
-    };
-
-    window.requestAnimationFrame(step);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value, duration]);
-
-  if (isNaN(displayValue)) return <span>0{suffix}</span>;
-
-  return <span>{displayValue.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}{suffix}</span>;
-};
 
 const KpiRow = ({ summary, filters }) => {
   if (!summary) return null;
@@ -76,14 +50,40 @@ const KpiRow = ({ summary, filters }) => {
     },
   ];
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+  };
+
   const sourceLabel = filters.source === 'all' ? 'All Sources' : filters.source.replace(/-/g, ' ').toUpperCase();
   const productLabel = filters.product === 'all' ? 'All Products' : filters.product.replace(/-/g, ' ').toUpperCase();
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <motion.div 
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+    >
       {kpis.map((kpi, i) => (
-        <div key={i} className="glass-card p-6 relative group overflow-hidden flex flex-col justify-between min-h-35">
-          <div className={`absolute top-0 left-0 w-1 h-full opacity-50 ${kpi.trendColor === 'text-accent' ? 'bg-accent' : 'bg-red-400'}`} />
+        <motion.div 
+          key={i} 
+          variants={item}
+          whileHover={{ y: -5, transition: { duration: 0.2 } }}
+          className="glass-card p-6 relative group flex flex-col justify-between min-h-[140px] cursor-default border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all duration-300"
+        >
+          {/* Subtle Accent Bar */}
+          <div className={`absolute top-0 left-0 w-1.5 h-full opacity-80 ${kpi.trendColor === 'text-accent' ? 'bg-accent shadow-[0_0_12px_#10b981]' : 'bg-red-500 shadow-[0_0_12px_#ef4444]'}`} />
 
           <div>
             <div className="flex justify-between items-start mb-1">
@@ -96,15 +96,15 @@ const KpiRow = ({ summary, filters }) => {
             <div className={`flex flex-col gap-1 ${kpi.color}`}>
               <div className="flex items-baseline gap-2">
                 {kpi.subValue !== undefined && <span className="text-[10px] font-bold text-slate-500 uppercase w-16">Positive:</span>}
-                <h3 className="text-3xl font-black tracking-tighter">
-                  <AnimatedNumber value={kpi.value} suffix={kpi.suffix} decimals={kpi.decimals} />
+                <h3 className="text-3xl font-black tracking-tighter drop-shadow-lg">
+                  <AnimatedCounter value={kpi.value} suffix={kpi.suffix} decimals={kpi.decimals} duration={1.5} />
                 </h3>
               </div>
               {kpi.subValue !== undefined && (
-                <div className="flex items-baseline gap-2 border-t border-white/5 pt-1">
+                <div className="flex items-baseline gap-2 border-t border-white/5 pt-1.5 mt-1">
                   <span className="text-[10px] font-bold text-slate-500 uppercase w-16">Negative:</span>
-                  <p className="text-xl font-bold tracking-tighter text-red-400">
-                    <AnimatedNumber value={kpi.subValue} suffix={kpi.suffix} decimals={kpi.decimals} />
+                  <p className="text-xl font-bold tracking-tighter text-red-500 drop-shadow-md">
+                    <AnimatedCounter value={kpi.subValue} suffix={kpi.suffix} decimals={kpi.decimals} duration={1.5} />
                   </p>
                 </div>
               )}
@@ -118,10 +118,10 @@ const KpiRow = ({ summary, filters }) => {
           </div>
 
           {/* Subtle background glow */}
-          <div className={`absolute -right-4 -bottom-4 w-24 h-24 rounded-full blur-3xl opacity-10 transition-opacity group-hover:opacity-20 ${kpi.trendColor === 'text-accent' ? 'bg-accent' : 'bg-red-400'}`} />
-        </div>
+          <div className={`absolute -right-8 -bottom-8 w-32 h-32 rounded-full blur-[40px] opacity-10 transition-opacity duration-500 group-hover:opacity-30 pointer-events-none ${kpi.trendColor === 'text-accent' ? 'bg-accent' : 'bg-red-500'}`} />
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 };
 

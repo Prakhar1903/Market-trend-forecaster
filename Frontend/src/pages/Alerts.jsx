@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { getAlerts } from '../services/dashboardService';
 
 // ─── Severity config ─────────────────────────────────────────────────────────
@@ -280,12 +281,13 @@ const Alerts = () => {
     const [filterSev, setFilterSev] = useState('All');
     const [filterType, setFilterType] = useState('All');
     const [tab, setTab] = useState('active');
+    const [range, setRange] = useState('30d'); // 🔥 New range state
 
     useEffect(() => {
         async function load() {
             setLoading(true);
             try {
-                const data = await getAlerts();
+                const data = await getAlerts(range); // 🔥 Pass range
                 setAlerts(data.alerts || []);
                 setSummary(data.summary || {});
             } catch (e) {
@@ -296,7 +298,7 @@ const Alerts = () => {
             }
         }
         load();
-    }, []);
+    }, [range]); // 🔥 Re-fetch on range change
 
     const visibleAlerts = useMemo(() =>
         alerts.filter(a => {
@@ -309,7 +311,12 @@ const Alerts = () => {
     const activeCount = alerts.length - dismissed.size;
 
     return (
-        <div className="flex flex-col gap-8 animate-in fade-in duration-700">
+        <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="flex flex-col gap-8"
+        >
 
             {/* ── HEADER ─────────────────────────────────────────────────────── */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -317,12 +324,34 @@ const Alerts = () => {
                     <h1 className="text-3xl font-extrabold text-slate-100 tracking-tight">🔔 Alerts</h1>
                     <p className="text-slate-400 mt-1">AI-powered monitoring of sentiment changes and market anomalies</p>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 self-start">
-                    <span className="relative flex w-2 h-2">
-                        <span className="animate-ping absolute h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                        <span className="relative rounded-full w-2 h-2 bg-emerald-400" />
-                    </span>
-                    <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">Live Monitoring</span>
+                <div className="flex flex-wrap items-center gap-3 self-start sm:self-center">
+                    {/* 🔥 Date Range Selector */}
+                    <div className="flex items-center gap-1 bg-slate-900/50 border border-white/10 rounded-xl p-1 shrink-0">
+                        {[
+                            { id: "7d", label: "7D" },
+                            { id: "30d", label: "30D" },
+                            { id: "90d", label: "90D" },
+                        ].map((r) => (
+                            <button
+                                key={r.id}
+                                onClick={() => setRange(r.id)}
+                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${range === r.id
+                                        ? "bg-primary text-white shadow-lg shadow-primary/20"
+                                        : "text-slate-500 hover:text-slate-300 hover:bg-white/5"
+                                    }`}
+                            >
+                                {r.label}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                        <span className="relative flex w-2 h-2">
+                            <span className="animate-ping absolute h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                            <span className="relative rounded-full w-2 h-2 bg-emerald-400" />
+                        </span>
+                        <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">Live Monitoring</span>
+                    </div>
                 </div>
             </div>
 
@@ -457,13 +486,23 @@ const Alerts = () => {
                     {/* Alert cards */}
                     {!loading && !error && visibleAlerts.length > 0 && (
                         <div className="flex flex-col gap-4">
-                            {visibleAlerts.map(alert => (
-                                <AlertCard
-                                    key={alert.id}
-                                    alert={alert}
-                                    onDismiss={id => setDismissed(prev => new Set([...prev, id]))}
-                                />
-                            ))}
+                            <AnimatePresence mode="popLayout">
+                                {visibleAlerts.map(alert => (
+                                    <motion.div
+                                        key={alert.id}
+                                        layout
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
+                                        transition={{ duration: 0.4, ease: "easeOut" }}
+                                    >
+                                        <AlertCard
+                                            alert={alert}
+                                            onDismiss={id => setDismissed(prev => new Set([...prev, id]))}
+                                        />
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
                         </div>
                     )}
                 </div>
@@ -576,7 +615,7 @@ const Alerts = () => {
                 </div>
             )}
 
-        </div>
+        </motion.div>
     );
 };
 

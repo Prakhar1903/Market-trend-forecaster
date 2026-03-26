@@ -1,7 +1,9 @@
 import os
 import requests
 import pandas as pd
+import pandas as pd
 import time
+import sys
 from dotenv import load_dotenv
 
 # 🔥 FIX: absolute base path
@@ -70,8 +72,10 @@ def get_comments(video_id):
         data = r.json()
 
         for item in data.get("items", []):
-            text = item["snippet"]["topLevelComment"]["snippet"]["textDisplay"]
-            comments.append(text)
+            snippet = item["snippet"]["topLevelComment"]["snippet"]
+            text = snippet["textDisplay"]
+            pub_at = snippet.get("publishedAt", "")
+            comments.append((text, pub_at))
 
         return comments
 
@@ -89,19 +93,27 @@ for query in PRODUCT_QUERIES:
     for v in videos:
         comments = get_comments(v["video_id"])
 
-        for c in comments:
-            if len(c) > 20:
+        for c_text, c_date in comments:
+            if len(c_text) > 20:
                 all_rows.append({
                     "platform": "youtube",
                     "product": product,
                     "title": v["title"],
-                    "text": c
+                    "text": c_text,
+                    "date": c_date
                 })
 
         time.sleep(1)
 
 
 df = pd.DataFrame(all_rows)
+
+# 🔹 Incremental Scraping Filter
+if not df.empty and len(sys.argv) > 1:
+    cutoff_date = pd.to_datetime(sys.argv[1], errors="coerce", utc=True)
+    if pd.notnull(cutoff_date):
+        dt_col = pd.to_datetime(df["date"], errors="coerce", utc=True)
+        df = df[dt_col >= cutoff_date]
 
 if df.empty:
     print(0)

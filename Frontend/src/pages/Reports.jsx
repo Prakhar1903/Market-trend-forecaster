@@ -187,7 +187,7 @@ const Reports = () => {
     setDateRange(preset);
     const end = new Date();
     const start = new Date();
-    const days = preset === "7d" ? 7 : preset === "30d" ? 30 : 90;
+    const days = preset === "1d" ? 1 : preset === "7d" ? 7 : preset === "30d" ? 30 : 90;
     start.setDate(end.getDate() - days);
     setFromDate(start.toISOString().split("T")[0]);
     setToDate(end.toISOString().split("T")[0]);
