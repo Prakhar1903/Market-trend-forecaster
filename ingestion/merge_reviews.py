@@ -23,9 +23,19 @@ def standardize_date(date_str, platform):
 # 🔹 SAFE LOAD
 def safe_read(filename):
     path = os.path.join(BASE_DIR, filename)
+
+    print(f"Reading: {path}")   # 🔥 DEBUG
+
+    if not os.path.exists(path):
+        print(f"File NOT FOUND: {path}")
+        return pd.DataFrame()
+
     try:
-        return pd.read_csv(path)
-    except:
+        df = pd.read_csv(path)
+        print(f"Loaded {len(df)} rows")
+        return df
+    except Exception as e:
+        print(f"Error reading {path}: {e}")
         return pd.DataFrame()
 
 
@@ -74,24 +84,21 @@ merged = pd.concat(all_dfs, ignore_index=True)
 # 🔹 CLEAN (SAFE)
 merged["text"] = merged["text"].astype(str)
 merged["date"] = datetime.today().strftime("%Y-%m-%d")
-merged = merged.drop_duplicates(subset=["text"])
+merged = merged.drop_duplicates(subset=["text", "platform"])
 merged = merged[merged["text"].str.len() > 20]
 
 
 # 🔥 APPEND + COUNT
 
 if os.path.exists(OUTPUT_FILE):
-    try:
-        existing = pd.read_csv(OUTPUT_FILE)
-    except:
-        existing = pd.DataFrame()
+    existing = pd.read_csv(OUTPUT_FILE)
 
     combined = pd.concat([existing, merged], ignore_index=True)
-    combined["text"] = combined["text"].astype(str)
 
-    combined = combined.drop_duplicates(subset=["text", "date"])
+    # 🔥 keep more data (relax duplicates)
+    combined = combined.drop_duplicates(subset=["text", "platform"])
 
-    added_count = max(len(combined) - len(existing), 0)
+    added_count = len(merged)   # 🔥 IMPORTANT FIX
 
     combined.to_csv(OUTPUT_FILE, index=False)
 
