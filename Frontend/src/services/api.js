@@ -1,3 +1,3 @@
-const API_URL = "https://market-trend-forecaster-main.onrender.com";
+const API_URL = "localhost:8000";
 
 export default API_URL;
