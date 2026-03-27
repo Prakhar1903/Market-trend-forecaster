@@ -6,6 +6,8 @@ from app.utils.auth import get_current_user, get_password_hash, verify_password
 from app.schemas.user import UserUpdate, PasswordUpdate
 from app.database import users_collection
 
+BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")
+
 router = APIRouter()
 
 @router.get("/profile")
@@ -34,7 +36,7 @@ async def upload_avatar(file: UploadFile = File(...), current_user = Depends(get
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
     
-    avatar_url = f"http://localhost:8000/static/uploads/{file_name}"
+    avatar_url = f"{BASE_URL}/static/uploads/{file_name}"
     await users_collection.update_one(
         {"_id": current_user["_id"]},
         {"$set": {"avatar_url": avatar_url}}
@@ -50,7 +52,7 @@ async def upload_banner(file: UploadFile = File(...), current_user = Depends(get
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
     
-    banner_url = f"http://localhost:8000/static/uploads/{file_name}"
+    banner_url = f"{BASE_URL}/static/uploads/{file_name}"
     await users_collection.update_one(
         {"_id": current_user["_id"]},
         {"$set": {"banner_url": banner_url}}
