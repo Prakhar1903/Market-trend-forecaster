@@ -31,6 +31,8 @@ def safe_read(filename):
         return pd.DataFrame()
 
     try:
+        # Check if file has header by reading only 0 rows
+        df_header = pd.read_csv(path, nrows=0)
         df = pd.read_csv(path)
         print(f"Loaded {len(df)} rows")
         return df
@@ -91,18 +93,17 @@ merged = merged[merged["text"].str.len() > 20]
 # 🔥 APPEND + COUNT
 
 if os.path.exists(OUTPUT_FILE):
-    existing = pd.read_csv(OUTPUT_FILE)
-
-    combined = pd.concat([existing, merged], ignore_index=True)
-
-    # 🔥 keep more data (relax duplicates)
-    combined = combined.drop_duplicates(subset=["text", "platform"])
-
-    added_count = len(merged)   # 🔥 IMPORTANT FIX
-
-    combined.to_csv(OUTPUT_FILE, index=False)
-
-    print(added_count)
+    try:
+        existing = pd.read_csv(OUTPUT_FILE)
+        combined = pd.concat([existing, merged], ignore_index=True)
+        combined = combined.drop_duplicates(subset=["text", "platform"])
+        added_count = len(combined) - len(existing)
+        combined.to_csv(OUTPUT_FILE, index=False)
+        print(max(added_count, 0))
+    except Exception as e:
+        # If file is corrupted or headerless, overwrite it correctly
+        merged.to_csv(OUTPUT_FILE, index=False)
+        print(len(merged))
 
 else:
     merged.to_csv(OUTPUT_FILE, index=False)

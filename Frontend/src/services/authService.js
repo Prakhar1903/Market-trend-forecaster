@@ -48,6 +48,11 @@ export const login = async (credentials) => {
   return response.data;
 };
 
+export const logout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+};
+
 
 // 👤 PROFILE APIs
 

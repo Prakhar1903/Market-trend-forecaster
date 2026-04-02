@@ -20,13 +20,23 @@ def standardize_date(platform):
 if os.path.exists(sentiment_file):
     try:
         df = pd.read_csv(sentiment_file, sep='\t')
-        df['date'] = df['platform'].apply(standardize_date)
-        df.to_csv(sentiment_file, sep='\t', index=False)
-    except: pass
+        if 'platform' in df.columns:
+            df['date'] = df['platform'].apply(standardize_date)
+            df.to_csv(sentiment_file, sep='\t', index=False)
+            print(f"Patched {len(df)} rows in {os.path.basename(sentiment_file)}")
+        else:
+            print(f"Error: 'platform' column not found in {sentiment_file}")
+    except Exception as e:
+        print(f"Error patching {sentiment_file}: {e}")
 
 if os.path.exists(all_reviews_file):
     try:
         df2 = pd.read_csv(all_reviews_file, sep=',')
-        df2['date'] = df2['platform'].apply(standardize_date)
-        df2.to_csv(all_reviews_file, sep=',', index=False)
-    except: pass
+        if 'platform' in df2.columns:
+            df2['date'] = df2['platform'].apply(standardize_date)
+            df2.to_csv(all_reviews_file, sep=',', index=False)
+            print(f"Patched {len(df2)} rows in {os.path.basename(all_reviews_file)}")
+        else:
+            print(f"Error: 'platform' column not found in {all_reviews_file}")
+    except Exception as e:
+        print(f"Error patching {all_reviews_file}: {e}")

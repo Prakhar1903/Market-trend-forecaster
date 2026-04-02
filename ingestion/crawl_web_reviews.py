@@ -9,9 +9,19 @@ warnings.filterwarnings("ignore")
 # 🔥 SAFE IMPORT
 try:
     from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
-except:
+except ImportError:
+    import sys
+    print(
+        "ERROR: 'crawl4ai' is not installed in the current Python environment.\n"
+        f"Active interpreter: {sys.executable}\n\n"
+        "Fix: Activate the project virtual environment before running this script:\n"
+        "  source /home/prakhar/Market-trend-forecaster/venv/bin/activate\n"
+        "  python ingestion/crawl_web_reviews.py\n\n"
+        "Or run directly with the venv interpreter:\n"
+        "  /home/prakhar/Market-trend-forecaster/venv/bin/python3 ingestion/crawl_web_reviews.py"
+    )
     print(0)
-    exit()
+    exit(1)
 
 # 🔥 PATH FIX
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
