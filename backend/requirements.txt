@@ -14,3 +14,4 @@ httpx
 openpyxl
 fpdf2
 python-multipart
+email-validator
