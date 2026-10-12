@@ -1,9 +1,9 @@
-from pydantic import BaseModel, EmailStr, field_validator
+from pydantic import BaseModel, field_validator
 from typing import Optional
 
 class UserCreate(BaseModel):
     username: str
-    email: EmailStr
+    email: str
     full_name: Optional[str] = None
     password: str
 
@@ -11,6 +11,14 @@ class UserCreate(BaseModel):
     @classmethod
     def trim_whitespace(cls, v: str) -> str:
         return v.strip()
+
+    @field_validator("email")
+    @classmethod
+    def validate_email(cls, v: str) -> str:
+        v = v.strip().lower()
+        if "@" not in v or "." not in v.split("@")[-1]:
+            raise ValueError("Please provide a valid email address")
+        return v
 
     @field_validator("username")
     @classmethod
