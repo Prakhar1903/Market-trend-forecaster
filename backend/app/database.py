@@ -12,7 +12,8 @@ if not MONGODB_URL:
 client = AsyncIOMotorClient(MONGODB_URL)
 
 # DATABASE
-database = client["market_trend_db"]
+DB_NAME = os.getenv("DB_NAME", "market_trend_db")
+database = client[DB_NAME]
 
 # COLLECTIONS (IMPORTANT)
 users_collection = database["users"]
